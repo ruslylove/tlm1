@@ -9,12 +9,15 @@ import Grid from '@material-ui/core/Grid';
 import transformer from '../stubs/transformerStub';
 import Typography from "@material-ui/core/Typography"
 import axios from 'axios';
+import MUIDataTable from "mui-datatables";
+import { fontSize } from '@material-ui/system';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         paddingTop: '10px',
+        height: '1000',
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -30,60 +33,109 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
 function TLMList(props) {
     const classes = useStyles();
-
     const [data, setData] = useState([]);
 
-
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios('http://localhost:4000/transformers');
-            setData(result.data);
+        const fetchData = () => {
+            axios.get('http://192.168.2.43:4000/transformers').then(response => {
+                //               console.log(response);
+                var data = parseData(response.data);
+                setData(data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+
         };
 
         fetchData();
     }, []);
 
+    function parseData(data) {
+
+        const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
+        const voltage = ["No voltage", "Under voltage", "Normal voltage", "Over voltage"];
+
+        data.map((item) => {
+            item.voltage_status = voltage[Number(item.voltage_status)];
+            item.load_status = load[Number(item.load_status)];
+        })
+
+        return data;
+    }
+
+    //const columns = ["id", "area", "manufacturer", "rating", "voltage", "load_status", "voltage_status"];
+    const columns = [
+        {
+            label: "รหัส", name: "id",
+            options: {
+                filter: false,
+                sort: true,
+                setCellProps: (value) => (value === 'SD101' && { style: { textDecoration: 'underline' } }),
+            }
+        },
+        { label: "เขตพื้นที่", name: "area" },
+        { label: "ผู้ผลิต", name: "manufacturer" },
+        { label: "Rating [kVA]", name: "rating", },
+        { label: "Voltage [kV]", name: "voltage", },
+
+        {
+            label: "สถานะโหลด",
+            name: "load_status",
+            options: {
+                filter: true,
+                sort: false,
+                setCellProps: (value) => {
+                    if (value === 'Over load') {
+                        return ({ style: { color: 'red' } });
+                    } else if (value === 'High load') {
+                        return ({ style: { color: 'orange' } });
+                    }
+                },
+            },
+        },
+        {
+            label: "สถานะแรงดัน",
+            name: "voltage_status",
+            options: {
+                filter: true,
+                sort: false,
+                setCellProps: (value) => {
+                    if (value === 'Over voltage') {
+                        return ({ style: { color: 'red' } });
+                    } else if (value === 'Under load') {
+                        return ({ style: { color: 'orange' } });
+                    }
+                },
+            },
+        },
+
+    ];
+
+    const options = {
+        filterType: 'dropdown',
+        responsive: 'scrollMaxHeight',
+    };
+
+    const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
+    const voltage = ["No voltage", "Under voltage", "Normal voltage", "Over voltage"];
+
+
+
+
     return (<div className={classes.root}>
-        <Container maxWidth="lg" >
+        <Container className={classes.root} maxWidth="lg">
             <Typography variant="h4" className={classes.title}>รายการหม้อแปลง TLM</Typography>
-            <Grid container direction="column" spacing={2} justify="center"
-                alignItems="center">
-                <Grid item xs={12}>
-                    <MaterialTable
-                        columns={[
-                            { title: "รหัส", field: "id" },
-                            { title: "เขตพื้นที่", field: "area" },
-                            { title: "ผู้ผลิต", field: "manufacturer" },
-                            { title: "Rating [kVA]", field: "rating", type: "numeric" },
-                            { title: "Voltage [kV]", field: "voltage", type: "numeric" },
-
-                            {
-                                title: "สถานะโหลด",
-                                field: "load_status",
-                                lookup: { 0: "No Load", 1: "Low Load", 2: "Normal Load", 3: "High Load", 4: "Over Load" }
-                            },
-                            {
-                                title: "สถานะแรงดัน",
-                                field: "voltage_status",
-                                lookup: { 0: "No Voltage", 1: "Under Voltage", 2: "Normal Voltage", 3: "Over Voltage" }
-                            },
-
-                        ]}
-
-                        data={data}
-
+            <Grid container direction="column" spacing={2} justified="center"
+            >
+                <Grid item xs={12} style={{ height: '800' }}>
+                    <MUIDataTable
                         title={null}
-
-
-
-
-                        detailPanel={rowData => {
-                            return (<TLMDetail id={rowData.id} />
-                            )
-                        }}
-
+                        data={data}
+                        columns={columns}
+                        options={options}
                     />
                 </Grid>
                 <Grid item xs={12}>

@@ -3,10 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
 import tr5 from '../images/5.jpg';
 import { Map } from '@esri/react-arcgis';
-import { Scene } from '@esri/react-arcgis';
 
 
 

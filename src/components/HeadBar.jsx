@@ -6,6 +6,8 @@ import logo from '../logo.svg';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import MailIcon from '@material-ui/icons/Mail';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,6 +52,9 @@ export default function HeadBar(props) {
       </Typography>
             {auth && (
                 <div>
+                    <Badge badgeContent={4} color="primary">
+                        <MailIcon />
+                    </Badge>
                     <IconButton
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
