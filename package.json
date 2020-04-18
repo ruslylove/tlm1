@@ -2,6 +2,7 @@
   "name": "tlm1",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ruslylove.github.io/tlm1",
   "dependencies": {
     "@arcgis/webpack-plugin": "^4.15.0",
     "@devexpress/dx-react-chart": "^2.6.2",
@@ -26,6 +27,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -44,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }
