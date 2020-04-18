@@ -10,6 +10,8 @@ import CardItem from './CardItem';
 import transformer from '../stubs/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
 import PieStatus from './PieStatus';
+import { Map } from '@esri/react-arcgis';
+import { WebMap, WebScene } from '@esri/react-arcgis';
 
 
 
@@ -63,19 +65,17 @@ const vcolor = ['#2196f3', '#ffeb3b', '#4caf50', '#f44336'];
 
 
 
-export default function TLMCard(props) {
+export default function TLMMap(props) {
     const classes = useStyles();
 
     return (
         <Container maxWidth="lg" className={classes.root}>
-            <Typography variant="h4" className={classes.title}>ข้อมูล และสถิติหม้อแปลง TLM</Typography>
+            <Typography variant="h4" className={classes.title}>แผนที่พิกัตตำแหน่งหม้อแปลง TLM</Typography>
             <Grid container spacing={3} alignItems="center" alignContent='center' justify="center">
 
-                <Grid item xs={12} sm={6} >
-                    <PieStatus chartData={loadData} field="count" title="สถานะโหลด" scheme={lcolor} />
-                </Grid>
-                <Grid item xs={12} sm={6} >
-                    <PieStatus chartData={voltData} field="count" title="สถานะแรงดัน" scheme={vcolor} />
+                <Grid item  >
+                    <WebMap id="e737e5e31a1e4ea8a9e4b06ef35d6f10" class="full-screen-map" style={{ width: '1024px', height: '600px' }} />
+
                 </Grid>
                 <Grid item xs={12} >
                     <Button

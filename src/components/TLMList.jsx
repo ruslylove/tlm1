@@ -89,7 +89,7 @@ function TLMList(props) {
                 sort: false,
                 setCellProps: (value) => {
                     if (value === 'Over load') {
-                        return ({ style: { color: 'red' } });
+                        return ({ style: { color: 'red', fontWegiht: 'bold' } });
                     } else if (value === 'High load') {
                         return ({ style: { color: 'orange' } });
                     }
@@ -117,6 +117,7 @@ function TLMList(props) {
     const options = {
         filterType: 'dropdown',
         responsive: 'scrollMaxHeight',
+        selectableRows: false,
     };
 
     const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
