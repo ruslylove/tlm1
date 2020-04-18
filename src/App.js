@@ -14,6 +14,8 @@ import { WebMapView } from './components/WebMapView';
 
 import './App.css';
 import TLMList from './components/TLMList';
+import TLMListStub from './components/TLMListStub';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +64,7 @@ function App() {
   return (
     <div>
       <HeadBar />
-      {(page === 'cda50483-e5be-49e7-8df0-b5e0895c9b8b') && <TLMList onClick={handleOnClick} />}
+      {(page === 'cda50483-e5be-49e7-8df0-b5e0895c9b8b') && <TLMListStub onClick={handleOnClick} />}
       {(page === 'e7a6e265-64d4-49f7-a742-c5b76cf726db') && <TLMCard onClick={handleOnClick} />}
       {(page === '3881cd49-f663-41d2-880b-8a41c2756325') && <TLMMap onClick={handleOnClick} />}
       {(page === 'fbe4494f-b1d8-4387-bb05-72e39ee72127') && <TLMChart onClick={handleOnClick} />}
