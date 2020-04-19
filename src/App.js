@@ -104,6 +104,9 @@ function App() {
           <Route path="/admin">
             <AppMain />
           </Route>
+          <Route path="/tlm1">
+            <AppMain />
+          </Route>
         </Switch>
       </Router>
 
