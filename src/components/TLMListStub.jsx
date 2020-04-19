@@ -11,6 +11,9 @@ import Typography from "@material-ui/core/Typography"
 import axios from 'axios';
 import MUIDataTable from "mui-datatables";
 import { fontSize } from '@material-ui/system';
+import { useHistory } from "react-router-dom";
+import FabMenuButtons from './FabMenuButtons';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,22 +39,16 @@ const useStyles = makeStyles((theme) => ({
 
 function TLMListStub(props) {
     const classes = useStyles();
+    let history = useHistory();
+
+    function handleClick() {
+        history.push("/");
+    }
+
 
 
     const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
     const voltage = ["No voltage", "Under voltage", "Normal voltage", "Over voltage"];
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //const columns = ["id", "area", "manufacturer", "rating", "voltage", "load_status", "voltage_status"];
@@ -113,21 +110,18 @@ function TLMListStub(props) {
 
     const options = {
         filterType: 'dropdown',
-        responsive: 'scrollMaxHeight',
+        responsive: 'scrollFullHeight',
         selectableRows: false,
+        rowsPerPage: 20,
+        rowsPerPageOptions: [20, 50, 100],
     };
-
-
-
-
-
 
     return (<div className={classes.root}>
         <Container className={classes.root} maxWidth="lg">
             <Typography variant="h4" className={classes.title}>รายการหม้อแปลง TLM</Typography>
             <Grid container direction="column" spacing={2} justified="center"
             >
-                <Grid item xs={12} style={{ height: '800' }}>
+                <Grid item xs={12} style={{ height: '1200' }}>
                     <MUIDataTable
                         title={null}
                         data={transformer}
@@ -142,13 +136,27 @@ function TLMListStub(props) {
                         size="large"
                         className={classes.button}
                         startIcon={<AppsIcon />}
-                        onClick={props.onClick}
+                        onClick={handleClick}
                     >
                         กลับเมนูหลัก
                 </Button>
                 </Grid>
+
+                <Grid item xs={12} alignContent='flex-end' >
+                    <span style={{ position: 'fixed', right: '30px', bottom: '2rem' }}>
+                        <FabMenuButtons onClick={handleClick} />
+                    </span>
+                </Grid>
             </Grid>
         </Container>
+
+
+
+
+
+
+
+
     </div>
     );
 }

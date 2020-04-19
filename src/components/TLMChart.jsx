@@ -10,6 +10,7 @@ import CardItem from './CardItem';
 import transformer from '../stubs/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
 import PieStatus from './PieStatus';
+import AppHomeButton from './AppHomeButton';
 
 
 
@@ -78,16 +79,7 @@ export default function TLMCard(props) {
                     <PieStatus chartData={voltData} field="count" title="สถานะแรงดัน" scheme={vcolor} />
                 </Grid>
                 <Grid item xs={12} >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        className={classes.button}
-                        startIcon={<AppsIcon />}
-                        onClick={props.onClick}
-                    >
-                        กลับเมนูหลัก
-                </Button>
+                    <AppHomeButton />
                 </Grid>
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import tr5 from '../images/5.jpg';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -16,12 +15,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { red } from '@material-ui/core/colors';
 import Collapse from '@material-ui/core/Collapse';
-
-
-
-
-
-
+import { Map } from '@esri/react-arcgis';
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
 
 
 
@@ -29,6 +25,7 @@ import Collapse from '@material-ui/core/Collapse';
 const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: 345,
+        backgroundColor: '#fafafa',
     },
     media: {
         height: 140,
@@ -47,12 +44,20 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         backgroundColor: red[500],
     },
+    extendedIcon: {
+        margin: theme.spacing(1),
+    },
 }));
 
 export default function CardItem(props) {
     const classes = useStyles();
+    const [fav, setFav] = useState(false);
+
+
+
     const tran = props.detail;
     const a = tran.area.substring(0, 1);
+
 
     const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
     const voltage = ["No voltage", "Under voltage", "Normal voltage", "Over voltage"];
@@ -64,6 +69,8 @@ export default function CardItem(props) {
         setExpanded(!expanded);
     };
 
+    const long = Number(tran.long);
+    const lat = Number(tran.lat);
 
     return (
         <Card className={classes.card}>
@@ -111,11 +118,14 @@ export default function CardItem(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                <IconButton aria-label="add to favorites" onClick={(e) => {
+                    setFav(!fav);
+                    props.onFavClick(tran);
+                }}>
+                    <FavoriteIcon color={fav ? "secondary" : "disabled"} />
                 </IconButton>
                 <Button size="small" color="primary">
-                    Time-series
+                    Values
           </Button>
                 <Button size="small" color="primary"
                     onClick={handleExpandClick}
@@ -125,30 +135,20 @@ export default function CardItem(props) {
           </Button>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <Typography paragraph>Method:</Typography>
-                    <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                        minutes.
-                    </Typography>
-                    <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-                        heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-                        browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-                        and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                        pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-                        saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-                    </Typography>
-                    <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-                        without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-                        medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-                        again without stirring, until mussels have opened and rice is just tender, 5 to 7
-                        minutes more. (Discard any mussels that don’t open.)
-                    </Typography>
-                    <Typography>
-                        Set aside off of the heat to let rest for 10 minutes, and then serve.
-                    </Typography>
+                <CardContent style={{ textAlign: 'center' }}>
+                    <Map
+                        style={{ width: '300px', height: '300px' }}
+                        mapProperties={{ basemap: 'streets' }}
+                        viewProperties={{
+                            center: [Number(tran.Long), Number(tran.lat)],
+                            zoom: 18
+                        }}
+                    />
+                    <Fab variant="extended" color="primary" className={classes.extendedIcon} size="medium"
+                        onClick={() => window.open("http://map.google.com?q=" + tran.lat + "," + tran.Long, "_blank")} >
+                        <NavigationIcon className={classes.extendedIcon} />
+                        Navigate
+                    </Fab>
                 </CardContent>
             </Collapse>
         </Card>

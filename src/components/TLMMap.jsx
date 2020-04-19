@@ -12,6 +12,7 @@ import { blueGrey } from '@material-ui/core/colors';
 import PieStatus from './PieStatus';
 import { Map } from '@esri/react-arcgis';
 import { WebMap, WebScene } from '@esri/react-arcgis';
+import AppHomeButton from './AppHomeButton';
 
 
 
@@ -78,16 +79,7 @@ export default function TLMMap(props) {
 
                 </Grid>
                 <Grid item xs={12} >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        className={classes.button}
-                        startIcon={<AppsIcon />}
-                        onClick={props.onClick}
-                    >
-                        กลับเมนูหลัก
-                </Button>
+                    <AppHomeButton />
                 </Grid>
 
 

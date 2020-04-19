@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +16,10 @@ import { Grid } from '@material-ui/core';
 import CardItem from './CardItem';
 import transformer from '../stubs/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
+import FabMenuButtons from './FabMenuButtons';
+import AppHomeButton from './AppHomeButton';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 
 const useStyles = makeStyles({
@@ -41,30 +46,49 @@ const images = [tr5, tr24, tr26, tr7, tr8, tr32];
 
 export default function TLMCard(props) {
     const classes = useStyles();
+    let history = useHistory();
+    const [showOnly, setShowOnly] = useState(false)
+    const [favcards, setFavCards] = useState([]);
+
+
+    function handleClick() {
+        history.push("/");
+    }
+
+    function handleFavClick(item) {
+        setFavCards(prev => {
+            return [...prev, item]
+        });
+    }
 
     return (
         <Container maxWidth="lg" className={classes.root}>
+            <FormControlLabel
+                control={<Switch checked={showOnly} onChange={() => setShowOnly(!showOnly)} name="checkedA" />}
+                label="Only Favourites"
+            />
             <Typography variant="h4" className={classes.title}>รายการหม้อแปลง TLM</Typography>
             <Grid container spacing={3} alignItems="center" alignContent='center' justify="center">
 
-                {transformer.map((item, index) => {
+                {!showOnly && transformer.map((item, index) => {
                     return (<Grid item xs={12} sm={6} lg={3} >
-                        <CardItem image={images[index % 6]} detail={item} />
+                        <CardItem id={index} image={images[index % 6]} detail={item} onFavClick={handleFavClick} />
+                    </Grid>)
+                })}
+                {showOnly && favcards.map((item, index) => {
+                    return (<Grid item xs={12} sm={6} lg={3} >
+                        <CardItem id={index} image={images[index % 6]} detail={item} onFavClick={handleFavClick} />
                     </Grid>)
                 })}
 
                 <Grid item xs={12} alignItems="center" alignContent='center' justify="center">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        className={classes.button}
-                        startIcon={<AppsIcon />}
-                        onClick={props.onClick}
+                    <AppHomeButton />
+                </Grid>
 
-                    >
-                        กลับเมนูหลัก
-                </Button>
+                <Grid item xs={12} alignContent='flex-end' >
+                    <span style={{ position: 'fixed', right: '30px', bottom: '2rem' }}>
+                        <FabMenuButtons onClick={handleClick} />
+                    </span>
                 </Grid>
 
 

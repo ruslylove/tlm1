@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { Container, Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import CardIcon from './CardIcon';
 import menuItems from '../menu_items';
 import { makeStyles } from '@material-ui/core/styles';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,14 +21,9 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
 function AppMain(props) {
     const classes = useStyles();
-
-
-    function handleOnClick(id) {
-        props.selectApp(id);
-    }
+    let history = useHistory();
 
     return (
         <Container maxWidth="lg" className={classes.root}>
@@ -36,7 +31,7 @@ function AppMain(props) {
             <Grid container spacing={3} alignItems="center">
                 {menuItems.map((item, index) => {
                     return (<Grid item xs={6} sm={3}>
-                        <CardIcon key={item.id} id={item.id} title={item.name} image={item.image} onClick={handleOnClick} />
+                        <CardIcon key={item.id} id={index} title={item.name} image={item.image} onClick={() => history.push(item.path)} />
                     </Grid>);
                 })}
 
