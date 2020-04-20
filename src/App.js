@@ -7,6 +7,7 @@ import TLMChart from './components/TLMChart';
 import TLMGrid from './components/TLMGrid';
 import TLMUnit from './components/TLMUnit'
 import TLMMap from './components/TLMMap';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,6 +24,8 @@ import './App.css';
 import TLMList from './components/TLMList';
 import TLMListStub from './components/TLMListStub';
 import TimeSeries from './components/TimeSeries';
+import LoginForm from './components/LoginForm';
+import { statement } from '@babel/template';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,9 +75,10 @@ function App() {
   return (
     <div>
       <HeadBar />
+      <LoginForm />
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/home">
             <AppMain />
           </Route>
           <Route path="/table">

@@ -13,8 +13,7 @@ import MUIDataTable from "mui-datatables";
 import { fontSize } from '@material-ui/system';
 import { useHistory } from "react-router-dom";
 import FabMenuButtons from './FabMenuButtons';
-
-
+import AppHomeButton from './AppHomeButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -130,16 +129,7 @@ function TLMListStub(props) {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        className={classes.button}
-                        startIcon={<AppsIcon />}
-                        onClick={handleClick}
-                    >
-                        กลับเมนูหลัก
-                </Button>
+                    <AppHomeButton />
                 </Grid>
 
                 <Grid item xs={12} alignContent='flex-end' >

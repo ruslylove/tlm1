@@ -36,7 +36,7 @@ export default () => {
         size="large"
         className={classes.button}
         startIcon={<AppsIcon />}
-        onClick={() => history.push("/")}
+        onClick={() => history.push("/home")}
     >
         กลับเมนูหลัก
 </Button>);
