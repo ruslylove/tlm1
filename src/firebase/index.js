@@ -6,4 +6,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config)
 }
 
-export default firebase.auth()
+export default firebase;

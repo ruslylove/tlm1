@@ -114,7 +114,7 @@ function TLMUnit(props) {
     //console.log(value);
 
     function handleClick() {
-        history.push("/");
+        history.push("/home");
     }
 
 

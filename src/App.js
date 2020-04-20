@@ -7,12 +7,14 @@ import TLMChart from './components/TLMChart';
 import TLMGrid from './components/TLMGrid';
 import TLMUnit from './components/TLMUnit'
 import TLMMap from './components/TLMMap';
+import { useHistory } from "react-router-dom";
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect,
 } from "react-router-dom";
 
 
@@ -45,10 +47,11 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [page, setPage] = useState('home');
+  const [userAuth, setUserAuth] = useState({ user: null, auth: null });
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -70,15 +73,57 @@ function App() {
     setPage(id);
   }
 
+  function handleAuth(auth, user) {
+    //console.log(auth);
+    //console.log(user);
+    console.log(user.currentUser);
+    setUserAuth({ user: user, auth: auth });
+    setAuth(true);  // user authenticated
+  }
 
+  function handleLogOut(e) {
+    //    console.log(e);
+    if (auth) {
+      e.preventDefault()
+      userAuth.auth.auth().signOut().then(response => {
+        setUserAuth(prev => {
+          //console.log(userAuth.user.currentUser);
+          return {
+            ...prev,
+            user: null
+          }
+        });
+        setAuth(false);
+      }).catch(error => {
+        console.log(error.message);
+        setUserAuth(prev => {
+          return {
+            ...prev,
+            user: {
+              message: error.message
+            },
+          }
+
+        })
+      })
+    }
+  }
 
   return (
     <div>
-      <HeadBar />
-      <LoginForm />
+
+
       <Router>
+        {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}
+        <Redirect to={auth ? '/home' : '/login'} />
         <Switch>
-          <Route exact path="/home">
+          <Route exact path="/login">
+            <LoginForm onAuth={handleAuth} />
+          </Route>
+          <Route path='/logout'>
+            <LoginForm logout />
+          </Route>'>
+          <Route path="/home">
             <AppMain />
           </Route>
           <Route path="/table">

@@ -1,9 +1,11 @@
-import auth from '../firebase'
+import firebase from '../firebase'
 import React, { useState, useEffect } from 'react'
-import { SearchState } from '@devexpress/dx-react-grid';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { useHistory } from "react-router-dom";
 
 
 function LoginForm(props) {
+    const history = useHistory();
 
     const [state, setState] = useState({
         email: '',
@@ -12,8 +14,28 @@ function LoginForm(props) {
         message: ''
     });
 
+    // Configure FirebaseUI.
+    const uiConfig = {
+        // Popup signin flow rather than redirect flow.
+        signInFlow: 'popup',
+        // We will display Google , Facebook , Etc as auth providers.
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            //   firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+            //  firebase.auth.GithubAuthProvider.PROVIDER_ID,
+            //   firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        ],
+        callbacks: {
+            // Avoid redirects after sign-in.
+            signInSuccessWithAuthResult: () => false,
+        },
+        signInSuccessUrl: '/home',
+
+    };
+
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 setState(prev => {
                     return {
@@ -27,7 +49,7 @@ function LoginForm(props) {
 
     const logout = e => {
         e.preventDefault()
-        auth.signOut().then(response => {
+        firebase.auth().signOut().then(response => {
             setState(prev => {
                 return {
                     ...prev,
@@ -36,9 +58,6 @@ function LoginForm(props) {
             })
         })
     }
-
-
-
 
     const onChange = e => {
         const { name, value } = e.target
@@ -56,15 +75,15 @@ function LoginForm(props) {
 
         const { email, password } = state;
         // TODO: implement signInWithEmailAndPassword()
-        auth
+        firebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(response => {
-                setState(prev => {
+                /* setState(prev => {
                     return {
                         ...prev,
                         currentUser: response.user
                     }
-                })
+                }) */
             })
             .catch(error => {
                 setState(prev => {
@@ -78,6 +97,8 @@ function LoginForm(props) {
     }
 
     if (state.currentUser) {
+        props.onAuth(firebase, state);
+        //history.push('/home');
         return (
             <div>
                 <p>Hello {state.currentUser.email}</p>
@@ -88,6 +109,8 @@ function LoginForm(props) {
 
     return (
         <section className="section container">
+            <h1 className="title is-1">TLM Login</h1>
+
             <div className="columns is-centered">
                 <div className="column is-half">
                     <form onSubmit={onSubmit}>
@@ -127,9 +150,11 @@ function LoginForm(props) {
                         </div>
                     </form>
                 </div>
+                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
             </div>
         </section>
     );
 }
 
-export default LoginForm
+export default LoginForm;
+
