@@ -52,7 +52,7 @@ export default function TLMCard(props) {
 
 
     function handleClick() {
-        history.push("/");
+        history.push("/home");
     }
 
     function handleFavClick(item) {
