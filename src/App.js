@@ -115,9 +115,9 @@ function App() {
 
       <Router>
         {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}
-        <Redirect to={auth ? '/home' : '/login'} />
+        <Redirect to={auth ? '/home' : '/tlm1'} />
         <Switch>
-          <Route path="/login">
+          <Route path="/tlm1">
             <LoginForm onAuth={handleAuth} />
           </Route>
           <Route path='/logout'>

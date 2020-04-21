@@ -2,6 +2,7 @@ import firebase from '../firebase'
 import React, { useState, useEffect } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useHistory } from "react-router-dom";
+import tlm_logo from "../images/logo-via-logohub.png"
 
 
 function LoginForm(props) {
@@ -108,49 +109,62 @@ function LoginForm(props) {
     }
 
     return (
-        <section className="section container">
-            <h1 className="title is-1">TLM Login</h1>
+        <section className="hero is-fullheight" style={{ background: "linear-gradient(90deg, #4b6cb7 0%, #182848 100%)" }}>
+            <div className="hero-body">
+                <div className="container has-text-centered" >
+                    <div className="columns ">
+                        <div className="column ">
+                            <div class="box">
+                                <img src={tlm_logo} />
+                                <p className="subtitle has-text-grey">V1.0</p>
+                                <form onSubmit={onSubmit}>
+                                    <div className="field">
+                                        <p class="control has-icons-left">
+                                            <span class="icon is-medium is-left">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                            <input
+                                                placeHolder="Email"
+                                                className="input is-medium"
+                                                type="email"
+                                                name="email"
+                                                onChange={onChange}
+                                                value={state.name}
+                                            />
+                                        </p>
+                                    </div>
 
-            <div className="columns is-centered">
-                <div className="column is-half">
-                    <form onSubmit={onSubmit}>
-                        <div className="field">
-                            <label className="label">Email</label>
-                            <div className="control">
-                                <input
-                                    className="input"
-                                    type="email"
-                                    name="email"
-                                    onChange={onChange}
-                                    value={state.name}
-                                />
-                            </div>
-                        </div>
+                                    <div className="field">
+                                        <p class="control has-icons-left">
+                                            <input
+                                                placeHolder="Password"
+                                                className="input is-medium"
+                                                type="password"
+                                                name="password"
+                                                onChange={onChange}
+                                                value={state.value}
+                                            />
+                                            <span className="icon is-small is-left">
+                                                <i className="fas fa-lock"></i>
+                                            </span>
+                                        </p>
+                                    </div>
 
-                        <div className="field">
-                            <label className="label">Password</label>
-                            <div className="control">
-                                <input
-                                    className="input"
-                                    type="password"
-                                    name="password"
-                                    onChange={onChange}
-                                    value={state.value}
-                                />
+                                    <div className="field is-grouped">
+                                        <div className="control">
+                                            <button className="button is-block is-link is-fullwidth">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
 
-                        <div className="field is-grouped">
-                            <div className="control">
-                                <button className="button is-link">Submit</button>
-                            </div>
-                            <div className="control">
-                                <button className="button is-text">Cancel</button>
-                            </div>
                         </div>
-                    </form>
+                        <div className="column">
+
+                            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                        </div>
+                    </div>
                 </div>
-                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
             </div>
         </section>
     );
