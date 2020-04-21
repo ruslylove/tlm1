@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useHistory } from "react-router-dom";
 import tlm_logo from "../images/logo-via-logohub.png"
+import Zoom from '@material-ui/core/Zoom';
+import Slide from '@material-ui/core/Slide';
 
 
 function LoginForm(props) {
@@ -115,7 +117,9 @@ function LoginForm(props) {
                     <div className="columns ">
                         <div className="column ">
                             <div class="box">
-                                <img src={tlm_logo} />
+                                <Zoom in={true} style={{ transitionDelay: '500ms' }} >
+                                    <img src={tlm_logo} />
+                                </Zoom>
                                 <p className="subtitle has-text-grey">V1.0</p>
                                 <form onSubmit={onSubmit}>
                                     <div className="field">
@@ -160,8 +164,9 @@ function LoginForm(props) {
 
                         </div>
                         <div className="column">
-
-                            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                            <Slide direction="left" in={true} mountOnEnter unmountOnExit style={{ transitionDelay: '1000ms' }}>
+                                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                            </Slide>
                         </div>
                     </div>
                 </div>
