@@ -65,7 +65,7 @@ export default function TLMCard(props) {
         <Container maxWidth="lg" className={classes.root}>
             <FormControlLabel
                 control={<Switch checked={showOnly} onChange={() => setShowOnly(!showOnly)} name="checkedA" />}
-                label="Only Favourites"
+                label="SHOW ONLY FAVORITES"
             />
             <Typography variant="h4" className={classes.title}>รายการหม้อแปลง TLM</Typography>
             <Grid container spacing={3} alignItems="center" alignContent='center' justify="center">

@@ -48,7 +48,8 @@ function TLMListStub(props) {
 
     const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
     const voltage = ["No voltage", "Under voltage", "Normal voltage", "Over voltage"];
-
+    const load_tag = ["tag is-dark", "tag is-info", "tag is-success", "tag is-warning", "tag is-danger"];
+    const voltage_tag = ["tag is-dark", "tag is-warning", "tag is-success", "tag is-danger"];
 
     //const columns = ["id", "area", "manufacturer", "rating", "voltage", "load_status", "voltage_status"];
     const columns = [
@@ -57,7 +58,10 @@ function TLMListStub(props) {
             options: {
                 filter: false,
                 sort: true,
-                setCellProps: (value) => (value === 'SD101' && { style: { textDecoration: 'underline' } }),
+                customBodyRender: (value, tableMeta, updateValue) => {
+
+                    return <button class="button is-dark is-small is-outlined">{value}</button>;
+                },
             }
         },
         { label: "เขตพื้นที่", name: "area" },
@@ -73,14 +77,7 @@ function TLMListStub(props) {
                 sort: false,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
-                    return load[value];
-                },
-                setCellProps: (value) => {
-                    if (value === 'Over load') {
-                        return ({ style: { color: 'red', fontWegiht: 'bold' } });
-                    } else if (value === 'High load') {
-                        return ({ style: { color: 'orange' } });
-                    }
+                    return <span class={load_tag[value]} >{load[value]}</span>;
                 },
             },
         },
@@ -92,16 +89,8 @@ function TLMListStub(props) {
                 sort: false,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
-                    return voltage[value];
+                    return <span class={voltage_tag[value]}>{voltage[value]}</span>;
                 },
-                setCellProps: (value) => {
-                    if (value === 'Over voltage') {
-                        return ({ style: { color: 'red' } });
-                    } else if (value === 'Under load') {
-                        return ({ style: { color: 'orange' } });
-                    }
-                },
-
             },
         },
 
@@ -139,14 +128,6 @@ function TLMListStub(props) {
                 </Grid>
             </Grid>
         </Container>
-
-
-
-
-
-
-
-
     </div>
     );
 }

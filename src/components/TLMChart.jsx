@@ -11,6 +11,7 @@ import transformer from '../stubs/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
 import PieStatus from './PieStatus';
 import AppHomeButton from './AppHomeButton';
+import Demo from './DemoAreaChart';
 
 
 
@@ -73,10 +74,16 @@ export default function TLMCard(props) {
             <Grid container spacing={3} alignItems="center" alignContent='center' justify="center">
 
                 <Grid item xs={12} sm={6} >
-                    <PieStatus chartData={loadData} field="count" title="สถานะโหลด" scheme={lcolor} />
+                    <PieStatus chartData={loadData} field="count" title="สถานะโหลดปัจจุบัน" scheme={lcolor} />
                 </Grid>
                 <Grid item xs={12} sm={6} >
-                    <PieStatus chartData={voltData} field="count" title="สถานะแรงดัน" scheme={vcolor} />
+                    <PieStatus chartData={voltData} field="count" title="สถานะแรงดันปัจจุบัน" scheme={vcolor} />
+                </Grid>
+                <Grid item xs={12} >
+                    <Demo title="สถิติสถานะโหลด" />
+                </Grid>
+                <Grid item xs={12} >
+                    <Demo title="สถิติสถานะแรงดัน" />
                 </Grid>
                 <Grid item xs={12} >
                     <AppHomeButton />
