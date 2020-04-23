@@ -98,7 +98,7 @@ function TLMListStub(props) {
 
     const options = {
         filterType: 'dropdown',
-        responsive: 'scrollFullHeight',
+        responsive: 'scrollMaxHeight',
         selectableRows: false,
         rowsPerPage: 20,
         rowsPerPageOptions: [20, 50, 100],

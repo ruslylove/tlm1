@@ -5,17 +5,37 @@ import { useHistory } from "react-router-dom";
 import tlm_logo from "../images/logo-via-logohub.png"
 import Zoom from '@material-ui/core/Zoom';
 import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+}));
 
 function LoginForm(props) {
+    const classes = useStyles();
     const history = useHistory();
-
     const [state, setState] = useState({
         email: '',
         password: '',
         currentUser: null,
         message: ''
     });
+    const [open, setOpen] = React.useState(false);
+    const [openBackDrop, setOpenBackDrop] = React.useState(false);
+
+    const handleCloseBackDrop = () => {
+        setOpenBackDrop(false);
+    };
 
     // Configure FirebaseUI.
     const uiConfig = {
@@ -73,12 +93,13 @@ function LoginForm(props) {
         })
     }
 
-    const onSubmit = e => {
+    const onSubmit = async (e) => {
         e.preventDefault()
+        setOpenBackDrop(true);
 
         const { email, password } = state;
         // TODO: implement signInWithEmailAndPassword()
-        firebase.auth()
+        await firebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(response => {
                 setState(prev => {
@@ -96,6 +117,7 @@ function LoginForm(props) {
                     }
 
                 })
+                setOpen(true);
             })
     }
 
@@ -110,6 +132,14 @@ function LoginForm(props) {
         )
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
     return (
         <section className="hero is-fullheight" style={{ background: "linear-gradient(90deg, #4b6cb7 0%, #182848 100%)" }}>
             <div className="hero-body">
@@ -117,6 +147,7 @@ function LoginForm(props) {
                     <div className="columns ">
                         <div className="column ">
                             <div class="box">
+                                {/* <img src="https://cdn4.iconfinder.com/data/icons/LUMINA/education_icons/png/400/electricity.png" style={{ width: 100, height: 100 }} /> */}
                                 <Zoom in={true} style={{ transitionDelay: '500ms' }} >
                                     <img src={tlm_logo} />
                                 </Zoom>
@@ -163,6 +194,7 @@ function LoginForm(props) {
                             </div>
 
                         </div>
+
                         <div className="column">
                             <Slide direction="left" in={true} mountOnEnter unmountOnExit style={{ transitionDelay: '1000ms' }}>
                                 <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
@@ -171,6 +203,26 @@ function LoginForm(props) {
                     </div>
                 </div>
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={state.message}
+                action={
+                    <React.Fragment>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                            <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </React.Fragment>
+                }
+            />
+            <Backdrop className={classes.backdrop} open={openBackDrop} onClick={handleCloseBackDrop}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </section>
     );
 }

@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
-
-
-
 import {
     FloatingMenu,
     MainButton,
@@ -16,6 +13,9 @@ import MdFavorite from '@material-ui/icons/Favorite';
 import AppsIcon from '@material-ui/icons/Apps';
 import HomeIcon from '@material-ui/icons/Home';
 import Tooltip from '@material-ui/core/Tooltip';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,18 +63,23 @@ export default (props) => {
                 size={56}
                 tooltip="App Home"
             />
-            <Tooltip title="Home" aria-label="home">
-                <ChildButton
-                    icon={<HomeIcon style={{ fontSize: 20 }} nativeColor="black" />}
-                    backgroundColor="blue"
-                    size={50}
-                    onClick={() => history.push("home")}
-                />
-            </Tooltip>
             <ChildButton
-                icon={<MdFavorite style={{ fontSize: 20 }} nativeColor="black" />}
+                icon={<HomeIcon style={{ fontSize: 20 }} nativeColor="black" />}
+                backgroundColor="blue"
+                size={52}
+                onClick={() => {
+                    setIsOpen(!isOpen);
+                    history.push("home");
+                }}
+            />
+            <ChildButton
+                icon={<ExitToAppIcon style={{ fontSize: 20 }} nativeColor="black" />}
                 backgroundColor="white"
-                size={50}
+                size={52}
+                onClick={(e) => {
+                    setIsOpen(!isOpen)
+                    props.onLogOut(e);
+                }}
             />
             <ChildButton
                 icon={<MdFavorite style={{ fontSize: 20 }} nativeColor="black" />}

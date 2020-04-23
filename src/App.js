@@ -118,9 +118,9 @@ function App() {
 
       <Router>
         {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}
-        <Redirect to={auth ? '/tlm1/home' : '/tlm1'} />
+        <Redirect to={auth ? '/tlm1/home' : '/tlm1/login'} />
         <Switch>
-          <Route exact path="/tlm1">
+          <Route exact path="/tlm1/login">
             <LoginForm onAuth={handleAuth} />
           </Route>
           <Route path='/tlm1/logout'>
@@ -161,7 +161,7 @@ function App() {
           </Route>
         </Switch>
         {auth && <span style={{ position: 'fixed', right: '30px', bottom: '2rem' }}>
-          <FabMenuButtons />
+          <FabMenuButtons onLogOut={handleLogOut} />
         </span>}
       </Router>
 
