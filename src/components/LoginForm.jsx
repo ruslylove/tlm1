@@ -81,12 +81,12 @@ function LoginForm(props) {
         firebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(response => {
-                /* setState(prev => {
+                setState(prev => {
                     return {
                         ...prev,
                         currentUser: response.user
                     }
-                }) */
+                })
             })
             .catch(error => {
                 setState(prev => {

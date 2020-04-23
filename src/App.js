@@ -8,6 +8,7 @@ import TLMGrid from './components/TLMGrid';
 import TLMUnit from './components/TLMUnit'
 import TLMMap from './components/TLMMap';
 import { useHistory } from "react-router-dom";
+import FabMenuButtons from './components/FabMenuButtons';
 
 import {
   BrowserRouter as Router,
@@ -15,6 +16,7 @@ import {
   Route,
   Link,
   Redirect,
+  useParams,
 } from "react-router-dom";
 
 
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  // const { param } = useParams();
   const classes = useStyles();
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -114,52 +117,52 @@ function App() {
 
 
       <Router>
-        {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}
-        <Redirect to={auth ? '/home' : '/tlm1'} />
+        {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}\
+        <Redirect to={auth ? '/tlm1/home' : '/tlm1'} />
         <Switch>
-          <Route path="/tlm1">
+          <Route exact path="/tlm1">
             <LoginForm onAuth={handleAuth} />
           </Route>
-          <Route path='/logout'>
+          <Route path='/tlm1/logout'>
             <LoginForm logout />
           </Route>'>
-          <Route exact path="/">
+          <Route path="/tlm1/home">
             <AppMain />
           </Route>
-          <Route path="/home">
-            <AppMain />
-          </Route>
-          <Route path="/table">
+          <Route path="/tlm1/table">
             <TLMListStub />
           </Route>
-          <Route path="/cards">
+          <Route path="/tlm1/cards">
             <TLMCard />
           </Route>
-          <Route path="/map">
+          <Route path="/tlm1/map">
             <TLMMap />
           </Route>
-          <Route path="/status">
+          <Route path="/tlm1/status">
             <TLMChart />
           </Route>
-          <Route path="/detail">
+          <Route path="/tlm1/detail">
             <TLMUnit />
           </Route>
-          <Route path="/alert">
+          <Route path="/tlm1/alert">
             <AppMain />
           </Route>
-          <Route path="/export">
+          <Route path="/tlm1/export">
             <AppMain />
           </Route>
-          <Route path="/settings">
+          <Route path="/tlm1/settings">
             <AppMain />
           </Route>
-          <Route path="/admin">
+          <Route path="/tlm1/admin">
             <AppMain />
           </Route>
-          <Route path="/tlm1">
+          <Route path="/tlm1/tlm1">
             <AppMain />
           </Route>
         </Switch>
+        {auth && <span style={{ position: 'fixed', right: '30px', bottom: '2rem' }}>
+          <FabMenuButtons />
+        </span>}
       </Router>
 
       {/* {(page === 'cda50483-e5be-49e7-8df0-b5e0895c9b8b') && <TLMListStub onClick={handleOnClick} />}

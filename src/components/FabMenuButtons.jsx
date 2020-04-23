@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
+
 
 
 import {
@@ -42,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
 export default (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const classes = useStyles();
+    let history = useHistory();
+
 
 
     return (
@@ -64,7 +68,7 @@ export default (props) => {
                     icon={<HomeIcon style={{ fontSize: 20 }} nativeColor="black" />}
                     backgroundColor="blue"
                     size={50}
-                    onClick={props.onClick}
+                    onClick={() => history.push("home")}
                 />
             </Tooltip>
             <ChildButton

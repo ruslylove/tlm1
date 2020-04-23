@@ -21,7 +21,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import AppHomeButton from './AppHomeButton';
 import FabMenuButtons from './FabMenuButtons';
-
+import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,21 +61,63 @@ function TLMUnit(props) {
         setAge(event.target.value);
     };
 
-
-
-
-
     const columns = [
         { label: "Time", name: "recorded_date", },
-        { label: "Va [V]", name: "V_A" },
-        { label: "Vb [V]", name: "V_B" },
-        { label: "Vc [V]", name: "V_C", },
+        {
+            label: "Va [V]", name: "V_A",
+            options: {
+                filter: true,
+                setCellProps: (value) => (
+                    { style: { backgroundColor: grey[50] } }
+                )
+            },
+        },
+        {
+            label: "Vb [V]", name: "V_B",
+            options: {
+                filter: true,
+                setCellProps: (value) => (
+                    { style: { backgroundColor: grey[50] } }
+                )
+            },
+        },
+        {
+            label: "Vc [V]", name: "V_C",
+            options: {
+                filter: true,
+                setCellProps: (value) => (
+                    { style: { backgroundColor: grey[50] } }
+                )
+            },
+        },
         { label: "Ia [A]", name: "I_A" },
         { label: "Ib [A]", name: "I_B" },
         { label: "Ic [A]", name: "I_C", },
-        { label: "Pa [kW]", name: "P_A", },
-        { label: "Pb [kW]", name: "P_B", },
-        { label: "Pc [kW]", name: "P_C", },
+        {
+            label: "Pa [kW]", name: "P_A",
+            options: {
+                filter: true,
+                setCellProps: (value) => (
+                    { style: { backgroundColor: grey[50] } }
+                )
+            },
+        },
+        {
+            label: "Pb [kW]", name: "P_B", options: {
+                filter: true,
+                setCellProps: (value) => (
+                    { style: { backgroundColor: grey[50] } }
+                )
+            },
+        },
+        {
+            label: "Pc [kW]", name: "P_C", options: {
+                filter: true,
+                setCellProps: (value) => (
+                    { style: { backgroundColor: grey[50] } }
+                )
+            },
+        },
         { label: "Ea [kWh]", name: "ENERGY_A", },
         { label: "Eb [kWh]", name: "ENERGY_B", },
         { label: "Ec [kWh]", name: "ENERGY_C", },
@@ -149,7 +191,7 @@ function TLMUnit(props) {
                     />
                 </Grid>
                 <Grid item xs={12} >
-                    <TimeSeries data={v} title="Voltage" subtitle="last 100 entries" yAxis="Volts" />
+                    <TimeSeries data={v} title="Voltage" subtitle="last 100 entries" yAxis="Volts" thresholdName="Over-voltage threshold" thresholdValue="240" />
                 </Grid>
                 <Grid item xs={12} >
                     <TimeSeries data={i} title="Current" subtitle="last 100 entries" yAxis="Amps" />
@@ -169,11 +211,6 @@ function TLMUnit(props) {
 
                 <Grid item xs={12}>
                     <AppHomeButton />
-                </Grid>
-                <Grid item xs={12} alignContent='flex-end' >
-                    <span style={{ position: 'fixed', right: '30px', bottom: '2rem' }}>
-                        <FabMenuButtons onClick={handleClick} />
-                    </span>
                 </Grid>
             </Grid>
         </Container>

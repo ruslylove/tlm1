@@ -120,12 +120,6 @@ function TLMListStub(props) {
                 <Grid item xs={12}>
                     <AppHomeButton />
                 </Grid>
-
-                <Grid item xs={12} alignContent='flex-end' >
-                    <span style={{ position: 'fixed', right: '30px', bottom: '2rem' }}>
-                        <FabMenuButtons onClick={handleClick} />
-                    </span>
-                </Grid>
             </Grid>
         </Container>
     </div>

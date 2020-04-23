@@ -4,6 +4,15 @@ import Chart from "react-google-charts";
 import Container from "@material-ui/core/Container";
 
 export default (props) => {
+    if (props.thresholdValue) {
+        props.data.map((item, index) => {
+            if (index === 0) {
+                props.data[index] = [...item, props.thresholdName];
+            } else {
+                props.data[index] = [...item, Number(props.thresholdValue)];
+            }
+        });
+    }
     return (<Paper style={{ padding: '20px' }}>
         <Chart
             width={'100%'}
@@ -19,6 +28,7 @@ export default (props) => {
                 series: {
                     // Gives each series an axis name that matches the Y-axis below.
                     0: { axis: 'Temps' },
+
                 },
                 axes: {
                     // Adds labels to each axis; they don't have to match the axis names.
