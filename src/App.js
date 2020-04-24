@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import FabMenuButtons from './components/FabMenuButtons';
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -118,45 +118,45 @@ function App() {
 
       <Router>
         {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}
-        <Redirect to={auth ? '/tlm1/home' : '/tlm1/login'} />
+        <Redirect to={auth ? '/home' : '/login'} />
         <Switch>
-          <Route exact path="/tlm1/login">
+          <Route exact path="/login">
             <LoginForm onAuth={handleAuth} />
           </Route>
-          <Route path='/tlm1/logout'>
+          <Route path='/logout'>
             <LoginForm logout />
           </Route>'>
-          <Route path="/tlm1/home">
+          <Route path="/home" >
             <AppMain />
           </Route>
-          <Route path="/tlm1/table">
+          <Route path="/table">
             <TLMListStub />
           </Route>
-          <Route path="/tlm1/cards">
+          <Route path="/cards">
             <TLMCard />
           </Route>
-          <Route path="/tlm1/map">
+          <Route path="/map">
             <TLMMap />
           </Route>
-          <Route path="/tlm1/status">
+          <Route path="/status">
             <TLMChart />
           </Route>
-          <Route path="/tlm1/detail">
+          <Route path="/detail">
             <TLMUnit />
           </Route>
-          <Route path="/tlm1/alert">
+          <Route path="/alert">
             <AppMain />
           </Route>
-          <Route path="/tlm1/export">
+          <Route path="/export">
             <AppMain />
           </Route>
-          <Route path="/tlm1/settings">
+          <Route path="/settings">
             <AppMain />
           </Route>
-          <Route path="/tlm1/admin">
+          <Route path="/admin">
             <AppMain />
           </Route>
-          <Route path="/tlm1/tlm1">
+          <Route path="/tlm1">
             <AppMain />
           </Route>
         </Switch>
@@ -176,7 +176,7 @@ function App() {
       {(page === '5dc2e174-e7f3-4209-9d0e-cd777175657a') && <AppMain selectApp={handleSelect} />}
       {(page === 'home') && <AppMain selectApp={handleSelect} />}
  */}
-    </div>
+    </div >
   );
 }
 

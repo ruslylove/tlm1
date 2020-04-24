@@ -31,7 +31,7 @@ function AppMain(props) {
             <Grid container spacing={3} alignItems="center">
                 {menuItems.map((item, index) => {
                     return (<Grid item xs={6} sm={3}>
-                        <CardIcon key={item.id} id={index} title={item.name} image={item.image} onClick={() => history.push('/tlm1' + item.path)} />
+                        <CardIcon key={item.id} id={index} title={item.name} image={item.image} onClick={() => history.push(item.path)} />
                     </Grid>);
                 })}
 
