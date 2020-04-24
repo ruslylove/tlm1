@@ -6,7 +6,7 @@ import TLMDetail from './TLMDetail';
 import Button from '@material-ui/core/Button'
 import AppsIcon from '@material-ui/icons/Apps';
 import Grid from '@material-ui/core/Grid';
-import transformer from '../stubs/transformerStub';
+import transformer from '../variables/transformerStub';
 import Typography from "@material-ui/core/Typography"
 import axios from 'axios';
 import MUIDataTable from "mui-datatables";

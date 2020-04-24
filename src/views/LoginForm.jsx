@@ -2,7 +2,6 @@ import firebase from '../firebase'
 import React, { useState, useEffect } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useHistory } from "react-router-dom";
-import tlm_logo from "../images/logo-via-logohub.png"
 import Zoom from '@material-ui/core/Zoom';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
@@ -11,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import tlm_logo from "../assets/images/logo-via-logohub.png"
 
 import { makeStyles } from '@material-ui/core/styles';
 

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { Container, Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import CardIcon from './CardIcon';
-import menuItems from '../menu_items';
+import CardIcon from '../components/CardIcon';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,9 +28,9 @@ function AppMain(props) {
         <Container maxWidth="lg" className={classes.root}>
             <Typography variant="h1" className={classes.title}>เมนูหลัก</Typography>
             <Grid container spacing={3} alignItems="center">
-                {menuItems.map((item, index) => {
+                {props.menuItems.map((item, index) => {
                     return (<Grid item xs={6} sm={3}>
-                        <CardIcon key={item.id} id={index} title={item.name} image={item.image} onClick={() => history.push(item.path)} />
+                        <CardIcon key={item.id} title={item.name} image={item.image} onClick={() => history.push(item.path)} />
                     </Grid>);
                 })}
 

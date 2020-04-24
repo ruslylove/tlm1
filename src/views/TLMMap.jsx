@@ -6,16 +6,13 @@ import AppsIcon from '@material-ui/icons/Apps';
 
 import { Container } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import CardItem from './CardItem';
-import transformer from '../stubs/transformerStub';
+import CardItem from '../components/CardItem';
+import transformer from '../variables/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
-import PieStatus from './PieStatus';
+import PieStatus from '../components/PieStatus';
 import { Map } from '@esri/react-arcgis';
 import { WebMap, WebScene } from '@esri/react-arcgis';
-import AppHomeButton from './AppHomeButton';
-
-
-
+import AppHomeButton from '../components/AppHomeButton';
 
 const useStyles = makeStyles({
     root: {

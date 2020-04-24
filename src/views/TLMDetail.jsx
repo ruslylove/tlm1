@@ -3,11 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import tr5 from '../images/5.jpg';
+import tr5 from '../assets/images/5.jpg';
 import { Map } from '@esri/react-arcgis';
-
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -9,7 +9,6 @@ import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/co
 import Badge from '@material-ui/core/Badge';
 import MailIcon from '@material-ui/icons/Mail';
 import { useHistory } from "react-router-dom";
-import LoginForm from './LoginForm';
 
 
 const useStyles = makeStyles((theme) => ({

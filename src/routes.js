@@ -1,4 +1,4 @@
-var menuItems = [{
+var routeItems = [{
     id: 'cda50483-e5be-49e7-8df0-b5e0895c9b8b',
     name: 'ตาราง',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/text-editor-512.png',
@@ -53,15 +53,4 @@ var menuItems = [{
 },
 ];
 
-
-
-
-
-
-
-
-
-
-
-
-export default menuItems;
+export default routeItems;

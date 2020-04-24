@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 function CardIcon(props) {
     const classes = useStyles();
 
+
     function handleClick() {
         props.onClick(props.id);
     }

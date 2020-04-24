@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -18,14 +18,17 @@ import Collapse from '@material-ui/core/Collapse';
 import { Map } from '@esri/react-arcgis';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
-
-
+import clsx from 'clsx';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ShareIcon from '@material-ui/icons/Share';
+import Divider from '@material-ui/core/Divider';
+import PointGraphic from './PointGraphic';
 
 
 const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: 345,
-        backgroundColor: '#fafafa',
+        backgroundColor: '#fff',
     },
     media: {
         height: 140,
@@ -47,12 +50,27 @@ const useStyles = makeStyles((theme) => ({
     extendedIcon: {
         margin: theme.spacing(1),
     },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
 }));
 
 export default function CardItem(props) {
     const classes = useStyles();
     const [fav, setFav] = useState(false);
 
+    useEffect(() => {
+        if (props.fav) {
+            setFav(true);
+        }
+    }, []);
 
 
     const tran = props.detail;
@@ -119,23 +137,70 @@ export default function CardItem(props) {
             </CardActionArea>
             <CardActions>
                 <IconButton aria-label="add to favorites" onClick={(e) => {
-                    setFav(!fav);
-                    props.onFavClick(tran);
+                    if (!fav) {
+                        setFav(true);
+                        props.onFavClick(tran);
+                    } else {
+                        setFav(false);
+                        props.onUnFavClick(tran);
+                    }
                 }}>
                     <FavoriteIcon color={fav ? "secondary" : "disabled"} />
                 </IconButton>
-                <Button size="small" color="primary">
-                    Values
-          </Button>
-                <Button size="small" color="primary"
+                <IconButton aria-label="share">
+                    <ShareIcon />
+                </IconButton>
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
-                    aria-label="show more">
-                    Location
-          </Button>
+                    aria-label="show more"
+                    style={{ marginLeft: 'auto' }}
+                >
+                    <ExpandMoreIcon />
+                </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Divider variant="middle" />
                 <CardContent style={{ textAlign: 'center' }}>
+                    <div className="table-container">
+                        <table className="table is-striped is-narrow">
+                            <tr className="th">
+                                <th>Electrical Quantity</th>
+                                <th>Phase-A</th>
+                                <th>Phase-B</th>
+                                <th>Phase-C</th>
+                            </tr>
+                            <tr>
+                                <td>Voltage</td>
+                                <td>230.71</td>
+                                <td>230.99</td>
+                                <td>230.88</td>
+                            </tr>
+                            <tr>
+                                <td>Current</td>
+                                <td>153.28</td>
+                                <td>163.84</td>
+                                <td>92.96</td>
+                            </tr>
+                            <tr>
+                                <td>Power</td>
+                                <td>31.07</td>
+                                <td>33.38</td>
+                                <td>18.31</td>
+                            </tr>
+                            <tr>
+                                <td>Energy Acc.</td>
+                                <td>1,568,240</td>
+                                <td>1,776,650</td>
+                                <td>887,573</td>
+                            </tr>
+                        </table>
+                        <Typography variant="body2" gutterBottom>Updated on 20/03/2020 10:12:52</Typography>
+
+                    </div>
                     <Map
                         style={{ width: '300px', height: '300px' }}
                         mapProperties={{ basemap: 'streets' }}
@@ -143,7 +208,9 @@ export default function CardItem(props) {
                             center: [Number(tran.Long), Number(tran.lat)],
                             zoom: 18
                         }}
-                    />
+                    >
+                        <PointGraphic lat={tran.lat} long={tran.Long} />
+                    </Map>
                     <Fab variant="extended" color="primary" className={classes.extendedIcon} size="medium"
                         onClick={() => window.open("http://map.google.com?q=" + tran.lat + "," + tran.Long, "_blank")} >
                         <NavigationIcon className={classes.extendedIcon} />
@@ -151,7 +218,7 @@ export default function CardItem(props) {
                     </Fab>
                 </CardContent>
             </Collapse>
-        </Card>
+        </Card >
 
 
     );

@@ -3,18 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AppsIcon from '@material-ui/icons/Apps';
-
 import { Container } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import CardItem from './CardItem';
-import transformer from '../stubs/transformerStub';
+import CardItem from '../components/CardItem';
+import transformer from '../variables/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
-import PieStatus from './PieStatus';
-import AppHomeButton from './AppHomeButton';
-import Demo from './DemoAreaChart';
-
-
-
+import PieStatus from '../components/PieStatus';
+import AppHomeButton from '../components/AppHomeButton';
+import Demo from '../components/DemoAreaChart';
 
 const useStyles = makeStyles({
     root: {
