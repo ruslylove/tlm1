@@ -9,6 +9,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Backdrop from '@material-ui/core/Backdrop';
+import Grid from '@material-ui/core/Grid';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import tlm_logo from "../assets/images/logo-via-logohub.png"
@@ -144,65 +146,70 @@ function LoginForm(props) {
     return (
         <section className="hero is-fullheight" style={{ background: "linear-gradient(90deg, #4b6cb7 0%, #182848 100%)" }}>
             <div className="hero-body">
-                <div className="container has-text-centered" >
-                    <div className="columns ">
-                        <div className="column ">
-                            <div class="box">
-                                {/* <img src="https://cdn4.iconfinder.com/data/icons/LUMINA/education_icons/png/400/electricity.png" style={{ width: 100, height: 100 }} /> */}
-                                <Zoom in={true} style={{ transitionDelay: '500ms' }} >
-                                    <img src={tlm_logo} />
-                                </Zoom>
-                                <p className="subtitle has-text-grey">V1.0</p>
-                                <form onSubmit={onSubmit}>
-                                    <div className="field">
-                                        <p class="control has-icons-left">
-                                            <span class="icon is-medium is-left">
-                                                <i class="fas fa-envelope"></i>
-                                            </span>
-                                            <input
-                                                placeHolder="Email"
-                                                className="input is-medium"
-                                                type="email"
-                                                name="email"
-                                                onChange={onChange}
-                                                value={state.name}
-                                            />
-                                        </p>
-                                    </div>
+                <Grid container>
+                    <div className="container has-text-centered" >
+                        <div className="columns ">
+                            <div className="column ">
+                                <Grid item>
+                                    <div class="box">
+                                        {/* <img src="https://cdn4.iconfinder.com/data/icons/LUMINA/education_icons/png/400/electricity.png" style={{ width: 100, height: 100 }} /> */}
+                                        <Zoom in={true} style={{ transitionDelay: '500ms' }} >
+                                            <img src={tlm_logo} />
+                                        </Zoom>
+                                        <p className="subtitle has-text-grey">V1.0</p>
+                                        <form onSubmit={onSubmit}>
+                                            <div className="field">
+                                                <p class="control has-icons-left">
+                                                    <span class="icon is-medium is-left">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </span>
+                                                    <input
+                                                        placeHolder="Email"
+                                                        className="input is-medium"
+                                                        type="email"
+                                                        name="email"
+                                                        onChange={onChange}
+                                                        value={state.name}
+                                                    />
+                                                </p>
+                                            </div>
 
-                                    <div className="field">
-                                        <p class="control has-icons-left">
-                                            <input
-                                                placeHolder="Password"
-                                                className="input is-medium"
-                                                type="password"
-                                                name="password"
-                                                onChange={onChange}
-                                                value={state.value}
-                                            />
-                                            <span className="icon is-small is-left">
-                                                <i className="fas fa-lock"></i>
-                                            </span>
-                                        </p>
-                                    </div>
+                                            <div className="field">
+                                                <p class="control has-icons-left">
+                                                    <input
+                                                        placeHolder="Password"
+                                                        className="input is-medium"
+                                                        type="password"
+                                                        name="password"
+                                                        onChange={onChange}
+                                                        value={state.value}
+                                                    />
+                                                    <span className="icon is-small is-left">
+                                                        <i className="fas fa-lock"></i>
+                                                    </span>
+                                                </p>
+                                            </div>
 
-                                    <div className="field is-grouped">
-                                        <div className="control">
-                                            <button className="button is-block is-link is-fullwidth">Submit</button>
-                                        </div>
+                                            <div className="field is-grouped">
+                                                <div className="control">
+                                                    <button className="button is-block is-link is-fullwidth">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
+                                </Grid>
+
                             </div>
-
-                        </div>
-
-                        <div className="column">
-                            <Slide direction="left" in={true} mountOnEnter unmountOnExit style={{ transitionDelay: '1000ms' }}>
-                                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-                            </Slide>
+                            <Grid item>
+                                <div className="column">
+                                    <Slide direction="left" in={true} mountOnEnter unmountOnExit style={{ transitionDelay: '1000ms' }}>
+                                        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                                    </Slide>
+                                </div>
+                            </Grid>
                         </div>
                     </div>
-                </div>
+                </Grid>
             </div>
             <Snackbar
                 anchorOrigin={{

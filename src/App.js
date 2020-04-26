@@ -25,6 +25,9 @@ import TLMMap from './views/TLMMap';
 import TLMList from './views/TLMList';
 import TLMListStub from './views/TLMListStub';
 import LoginForm from './views/LoginForm';
+import ChartPanel from './views/ChartPanel';
+
+import Draggable from 'react-draggable';
 
 // routes items
 import routeItems from './routes.js';
@@ -144,7 +147,7 @@ function App() {
             <TLMChart />
           </Route>
           <Route path="/detail">
-            <TLMUnit />
+            <ChartPanel />
           </Route>
           <Route path="/alert">
             <AppMain menuItems={routeItems} />
@@ -162,7 +165,7 @@ function App() {
             <AppMain menuItems={routeItems} />
           </Route>
         </Switch>
-        {auth && <span style={{ position: 'fixed', left: '2rem', bottom: '2rem' }}>
+        {auth && <span style={{ position: 'fixed', right: '15vw', bottom: '10vh' }}>
           <FabMenuButtons onLogOut={handleLogOut} />
         </span>}
       </Router>
