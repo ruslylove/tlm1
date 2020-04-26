@@ -232,7 +232,7 @@ export default function ChartPanel() {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={6}>
           <Paper>
             <FormControl className={classes.formControl}>
               <FormGroup row>
