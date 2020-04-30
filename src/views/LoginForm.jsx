@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Backdrop from '@material-ui/core/Backdrop';
 import Grid from '@material-ui/core/Grid';
 
@@ -195,10 +196,10 @@ function LoginForm(props) {
                                                     <button className="button is-block is-link is-fullwidth">Submit</button>
                                                 </div>
                                             </div>
+                                            {props.demo !== null && <p><PeopleAltIcon /><i> For guests/demonstration, please login using username: <b>test@tlm.com</b> password: <b>123456</b></i></p>}
                                         </form>
                                     </div>
                                 </Grid>
-
                             </div>
                             <Grid item>
                                 <div className="column">

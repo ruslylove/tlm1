@@ -33,6 +33,13 @@ var routeItems = [{
 },
 
 {
+    id: '6d656c52-49a2-430e-bc1c-1d8ca5103293',
+    name: 'แดชบอร์ด',
+    image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/codeblocks-512.png',
+    path: '/dashboard'
+},
+
+{
     id: '0fe27bf9-2457-4911-ac8a-d2a668a0222d',
     name: 'แจ้งเตือน',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/google-keep-512.png',

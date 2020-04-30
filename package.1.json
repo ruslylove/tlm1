@@ -2,7 +2,7 @@
   "name": "tlm1",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tlm.mea.teratam.com",
+  "homepage": "https://ruslylove.github.io/tlm1",
   "dependencies": {
     "@arcgis/webpack-plugin": "^4.15.0",
     "@devexpress/dx-react-chart": "^2.6.2",

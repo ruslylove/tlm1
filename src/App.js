@@ -126,7 +126,7 @@ function App() {
         <Redirect to={auth ? '/home' : '/login'} />
         <Switch>
           <Route exact path="/login">
-            <LoginForm onAuth={handleAuth} />
+            <LoginForm onAuth={handleAuth} demo />
           </Route>
           <Route path='/logout'>
             <LoginForm logout />
@@ -149,6 +149,10 @@ function App() {
           <Route path="/detail">
             <ChartPanel />
           </Route>
+          <Route path="/dashboard" component={() => {
+            window.location.href = 'https://dashboard.teratam.com/d/AOKtd7eZz/tlm-dashboard?orgId=1&refresh=5m&from=1588247916319&to=1588251516319&var-tr_id=87';
+            return null;
+          }} />
           <Route path="/alert">
             <AppMain menuItems={routeItems} />
           </Route>
