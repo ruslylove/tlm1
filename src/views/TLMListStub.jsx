@@ -74,7 +74,7 @@ function TLMListStub(props) {
             name: "load_status",
             options: {
                 filter: true,
-                sort: false,
+                sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
                     return <span class={load_tag[value]} >{load[value]}</span>;
@@ -86,7 +86,7 @@ function TLMListStub(props) {
             name: "voltage_status",
             options: {
                 filter: true,
-                sort: false,
+                sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
                     return <span class={voltage_tag[value]}>{voltage[value]}</span>;

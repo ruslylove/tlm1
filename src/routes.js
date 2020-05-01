@@ -1,25 +1,25 @@
 var routeItems = [{
     id: 'cda50483-e5be-49e7-8df0-b5e0895c9b8b',
-    name: 'ตาราง',
+    name: 'ค้นหา:ตาราง',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/text-editor-512.png',
     path: '/table'
 }, {
 
     id: 'e7a6e265-64d4-49f7-a742-c5b76cf726db',
-    name: 'การ์ด',
+    name: 'ค้นหา:การ์ด',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/file-manager-512.png',
     path: '/cards'
 
 },
 {
     id: '3881cd49-f663-41d2-880b-8a41c2756325',
-    name: 'ที่ตั้ง',
+    name: 'ค้นหา:ที่ตั้ง',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/deluge-512.png',
     path: '/map'
 
 }, {
     id: 'fbe4494f-b1d8-4387-bb05-72e39ee72127',
-    name: 'สถานะ',
+    name: 'ค้นหา:สถานะ',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/calligrakrita-512.png',
     path: '/status'
 
