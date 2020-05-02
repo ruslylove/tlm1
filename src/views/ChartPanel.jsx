@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 // resources
 import LineChart from "../components/LineChart";
 import sd102 from "../variables/sd102.js";
@@ -28,8 +27,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import { grey } from '@material-ui/core/colors';
 import Paper from "@material-ui/core/Paper";
 
-
-
+// components
+import AppHomeButton from '../components/AppHomeButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -406,6 +405,9 @@ export default function ChartPanel() {
             />
           </Grid>
         )}
+        <Grid item xs={12}>
+          <AppHomeButton />
+        </Grid>
       </Grid>
     </Container>
 

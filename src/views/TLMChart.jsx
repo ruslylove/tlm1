@@ -7,6 +7,8 @@ import transformer from '../variables/transformerStub';
 import AppHomeButton from '../components/AppHomeButton';
 import PieChart from '../components/PieChart'
 import MUIDataTable from "mui-datatables";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
 
 
 const useStyles = makeStyles({
@@ -74,6 +76,30 @@ const columns = [
     { label: "ผู้ผลิต", name: "manufacturer" },
     { label: "Rating [kVA]", name: "rating", },
     { label: "Voltage [kV]", name: "voltage", },
+    {
+        label: "สถานะโหลด",
+        name: "load_status",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+
+                return <span class={load_tag[value]} >{load[value]}</span>;
+            },
+        },
+    },
+    {
+        label: "สถานะแรงดัน",
+        name: "voltage_status",
+        options: {
+            filter: true,
+            sort: true,
+            customBodyRender: (value, tableMeta, updateValue) => {
+
+                return <span class={voltage_tag[value]}>{voltage[value]}</span>;
+            },
+        },
+    },
 
 ];
 
@@ -89,6 +115,16 @@ export default function TLMCard(props) {
     const classes = useStyles();
     var [data, setData] = useState([]);
     var [title, setTitle] = useState('');
+
+    var getMuiTheme = (color) => createMuiTheme({
+        overrides: {
+            MUIDataTableBodyCell: {
+                root: {
+                    backgroundColor: color
+                }
+            }
+        }
+    })
 
     function handleChartClick(index, id) {
         data = transformer;
@@ -110,12 +146,15 @@ export default function TLMCard(props) {
                     <PieChart id="voltage" chartData={voltData} field="count" title="สถานะแรงดันปัจจุบัน" scheme={vcolor} chartClick={handleChartClick} />
                 </Grid>
                 <Grid item xs={12} style={{ height: '1200' }}>
-                    <MUIDataTable
-                        title={title}
-                        data={data}
-                        columns={columns}
-                        options={options}
-                    />
+                    <MuiThemeProvider >
+                        <MUIDataTable
+                            title={title}
+                            data={data}
+                            columns={columns}
+                            options={options}
+                        />
+                    </MuiThemeProvider>
+
                 </Grid>
 
                 <Grid item xs={12} >

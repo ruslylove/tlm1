@@ -26,6 +26,8 @@ import TLMList from './views/TLMList';
 import TLMListStub from './views/TLMListStub';
 import LoginForm from './views/LoginForm';
 import ChartPanel from './views/ChartPanel';
+import TLMDrawer from './views/TLMDrawer';
+import AppLayout from './layouts/AppLayout';
 
 import Draggable from 'react-draggable';
 
@@ -122,7 +124,7 @@ function App() {
 
 
       <Router>
-        {auth && <HeadBar onLogOut={handleLogOut} user={userAuth.user} />}
+        {auth && <AppLayout onLogOut={handleLogOut} user={userAuth.user} />}
         <Redirect to={auth ? '/home' : '/login'} />
         <Switch>
           <Route exact path="/login">
@@ -169,10 +171,8 @@ function App() {
             <AppMain menuItems={routeItems} />
           </Route>
         </Switch>
-        {auth && <span style={{ position: 'fixed', right: '15vw', bottom: '10vh' }}>
-          <FabMenuButtons onLogOut={handleLogOut} />
-        </span>}
       </Router>
+
     </div>
   );
 }
