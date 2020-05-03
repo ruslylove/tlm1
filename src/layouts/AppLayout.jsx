@@ -100,6 +100,10 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
     },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
 }));
 
 
@@ -222,7 +226,9 @@ export default function AppLayout(props) {
             >
                 <div className={classes.drawerHeader}>
 
-                    <CardHeader avatar={<Avatar src='https://dvdsreleasedates-nortongroupllc.netdna-ssl.com/pictures/110/12000/Brad-Pitt.jpg' variant='circle' />}
+                    <CardHeader avatar={<Avatar src='https://dvdsreleasedates-nortongroupllc.netdna-ssl.com/pictures/110/12000/Brad-Pitt.jpg' variant='circle'
+                        className={classes.large}
+                    />}
                         title="Ruslee S." subheader={props.user === null ? '' : props.user.currentUser.email} />
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}

@@ -100,10 +100,10 @@ export default function ChartPanel() {
   const [state, setState] = React.useState({
     checkedV: true,
     checkedI: true,
-    checkedS: false,
-    checkedP: false,
-    checkedQ: false,
-    checkedT: false
+    checkedS: true,
+    checkedP: true,
+    checkedQ: true,
+    checkedT: true
   });
 
   const [age, setAge] = React.useState('');
@@ -231,8 +231,8 @@ export default function ChartPanel() {
           />
         </Grid>
 
-        <Grid item xs={12} lg={6}>
-          <Paper>
+        <Grid item xs={12} lg={6} style={{ position: 'sticky', top: 80 }}>
+          <Paper elevation={3}>
             <FormControl className={classes.formControl}>
               <FormGroup row>
                 <FormControlLabel
