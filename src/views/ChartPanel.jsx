@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // resources
 import LineChart from "../components/LineChart";
@@ -64,7 +64,7 @@ function getValue(data) {
   var time = [];
 
   data.map((item, index) => {
-    time = [...time, item.recorded_date];
+    time = [...time, item.time];
     v[0] = [...v[0], Number(item.V_A)];
     v[1] = [...v[1], Number(item.V_B)];
     v[2] = [...v[2], Number(item.V_C)];
@@ -85,15 +85,13 @@ function getValue(data) {
     q[1] = [...q[1], Number(item.Q_B)];
     q[2] = [...q[2], Number(item.Q_C)];
 
-    t = [...t, Number(item.ambient_temp)];
+    t = [...t, Number(item.temperature)];
     return null;
   });
   return [v, i, s, p, q, t, time];
 }
 
-var [v, i, s, p, q, t, time] = getValue(sd102);
 
-const len = sd102.length;
 
 export default function ChartPanel() {
   const classes = useStyles();
@@ -106,17 +104,58 @@ export default function ChartPanel() {
     checkedT: true
   });
 
-  const [age, setAge] = React.useState('');
+  //const [age, setAge] = React.useState('');
+  const [data, setData] = useState([]);
+  const [period, setPeriod] = useState(100);
+  const [tlmid, setTlmid] = useState([]);
+  const [select, setSelect] = useState(87);
+
+  var [v, i, s, p, q, t, time] = getValue(data);
+  const len = data.length;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get("https://nodered.teratam.com/tlm_query?tlm_id=" + select)
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          // Error 😨
+          console.log(error);
+        });
+
+      await axios
+        .get("https://nodered.teratam.com/tlmid")
+        .then((response) => {
+          console.log(response.data);
+          setTlmid(response.data.filter(i => {
+            if (parseInt(i.value))
+              return true;
+            return false;
+          }).map(i => {
+            return i.value;
+          }));
+          //setData(response.data);
+        })
+        .catch((error) => {
+          // Error 😨
+          console.log(error);
+        });
+    };
+
+    fetchData();
+  }, [select]);
+
 
   const handleTChange = (event) => {
-    setAge(event.target.value);
+    setSelect(event.target.value);
   };
 
   const handleCBChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
-
-  const [period, setPeriod] = useState(100);
 
   /*   const handleChange = event => {
     event.preventDefault();
@@ -133,7 +172,7 @@ export default function ChartPanel() {
 
 
   const columns = [
-    { label: "Time", name: "recorded_date", },
+    { label: "Time", name: "time", },
     {
       label: "Va [V]", name: "V_A",
       options: {
@@ -189,9 +228,9 @@ export default function ChartPanel() {
         )
       },
     },
-    { label: "Ea [kWh]", name: "ENERGY_A", },
-    { label: "Eb [kWh]", name: "ENERGY_B", },
-    { label: "Ec [kWh]", name: "ENERGY_C", },
+    { label: "Ea [kWh]", name: "E_A", },
+    { label: "Eb [kWh]", name: "E_B", },
+    { label: "Ec [kWh]", name: "E_C", },
 
   ];
 
@@ -211,12 +250,12 @@ export default function ChartPanel() {
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={age}
+              value={select}
               onChange={handleTChange}
             >
-              <MenuItem value={10}>SD101</MenuItem>
-              <MenuItem value={20}>SD102</MenuItem>
-              <MenuItem value={30}>SD103</MenuItem>
+              {tlmid.map(i => {
+                return <MenuItem value={i}>{i}</MenuItem>
+              })}
             </Select>
             <FormHelperText>เลือกหมายเลข TLM</FormHelperText>
           </FormControl>
@@ -225,7 +264,7 @@ export default function ChartPanel() {
         <Grid item xs={12} style={{ height: '800' }}>
           <MUIDataTable
             title={null}
-            data={sd102.slice(sd102.length - 20, sd102.length)}
+            data={data.slice(data.length - 20, data.length)}
             columns={columns}
             options={options}
           />
@@ -313,7 +352,7 @@ export default function ChartPanel() {
                 step={10}
                 marks
                 min={10}
-                max={450}
+                max={data.length}
                 value={period}
                 onChange={handleChange}
               />
