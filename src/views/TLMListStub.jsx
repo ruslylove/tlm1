@@ -14,6 +14,8 @@ import { fontSize } from '@material-ui/system';
 import { useHistory } from "react-router-dom";
 import FabMenuButtons from '../components/FabMenuButtons';
 import AppHomeButton from '../components/AppHomeButton';
+import FabHomeButton from '../components/FabHomeButton';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,8 +46,6 @@ function TLMListStub(props) {
         history.push("/");
     }
 
-
-
     const load = ["No load", "Low load", "Normal load", "High load", "Over load"];
     const voltage = ["No voltage", "Under voltage", "Normal voltage", "Over voltage"];
     const load_tag = ["tag is-dark", "tag is-info", "tag is-success", "tag is-warning", "tag is-danger"];
@@ -56,11 +56,11 @@ function TLMListStub(props) {
         {
             label: "รหัส", name: "id",
             options: {
-                filter: false,
+                filter: true,
                 sort: true,
                 customBodyRender: (value, tableMeta, updateValue) => {
 
-                    return <button class="button is-dark is-small is-outlined">{value}</button>;
+                    return <button onClick={(e) => handleIdClick(e, value)} class="button is-dark is-small is-outlined">{value}</button>;
                 },
             }
         },
@@ -96,12 +96,23 @@ function TLMListStub(props) {
 
     ];
 
+    const handleRowClick = (rowData, rowMeta) => {
+        console.log(rowData[0].props.children, rowMeta);
+    };
+
+    const handleIdClick = (e, value) => {
+        let id = parseInt(value.substring(2)) - 38;
+        console.log(id);
+        history.push('/detail/' + id);
+    };
+
     const options = {
         filterType: 'dropdown',
-        responsive: 'scrollMaxHeight',
+        // responsive: 'scrollMaxHeight',
         selectableRows: false,
         rowsPerPage: 20,
         rowsPerPageOptions: [20, 50, 100],
+        onRowClick: handleRowClick,
     };
 
     return (<div className={classes.root}>
@@ -117,11 +128,13 @@ function TLMListStub(props) {
                         options={options}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <AppHomeButton />
-                </Grid>
+
+            </Grid>
+            <Grid item xs={12} style={{ position: 'sticky', bottom: 80 }} >
+                <FabHomeButton />
             </Grid>
         </Container>
+
     </div>
     );
 }

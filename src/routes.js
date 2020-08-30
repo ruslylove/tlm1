@@ -29,7 +29,7 @@ var routeItems = [{
     id: '6d656c52-49a2-430e-bc1c-1d8ca5103293',
     name: 'พล็อต',
     image: 'https://cdn4.iconfinder.com/data/icons/macaron-1/48/mypaint-256.png',
-    path: '/detail'
+    path: '/detail/63'
 },
 
 {

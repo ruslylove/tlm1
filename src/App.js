@@ -148,7 +148,7 @@ function App() {
           <Route path="/status">
             <TLMChart />
           </Route>
-          <Route path="/detail">
+          <Route path="/detail/:id">
             <ChartPanel />
           </Route>
           <Route path="/dashboard" component={() => {

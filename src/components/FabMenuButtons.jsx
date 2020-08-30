@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import {
@@ -46,10 +46,33 @@ export default (props) => {
     const classes = useStyles();
     let history = useHistory();
 
+    const prevScrollY = useRef(0);
+
+    const [goingUp, setGoingUp] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (prevScrollY.current < currentScrollY && goingUp) {
+                setGoingUp(false);
+            }
+            if (prevScrollY.current > currentScrollY && !goingUp) {
+                setGoingUp(true);
+            }
+
+            prevScrollY.current = currentScrollY;
+            console.log(goingUp, currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [goingUp]);
+
 
 
     return (
-        <FloatingMenu
+        goingUp && <FloatingMenu
             slideSpeed={500}
             direction="up"
             spacing={8}

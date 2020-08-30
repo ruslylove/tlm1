@@ -16,7 +16,7 @@ import { Grid } from '@material-ui/core';
 import CardItem from '../components/CardItem';
 import transformer from '../variables/transformerStub';
 import { blueGrey } from '@material-ui/core/colors';
-import FabMenuButtons from '../components/FabMenuButtons';
+import FabHomeButton from '../components/FabHomeButton';
 import AppHomeButton from '../components/AppHomeButton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -97,8 +97,8 @@ export default function TLMCard(props) {
                     </Grid>)
                 })}
 
-                <Grid item xs={12} alignItems="center" alignContent='center' justify="center">
-                    <AppHomeButton />
+                <Grid item xs={12} style={{ position: 'sticky', bottom: 80 }} >
+                    <FabHomeButton />
                 </Grid>
             </Grid>
         </Container>

@@ -20,15 +20,19 @@ import Button from '@material-ui/core/Button'
 import AppsIcon from '@material-ui/icons/Apps';
 import Grid from '@material-ui/core/Grid';
 import transformer from '../variables/transformerStub';
+import transId from '../variables/trans_id.json';
 import axios from 'axios';
 import MUIDataTable from "mui-datatables";
 import { fontSize } from '@material-ui/system';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { grey } from '@material-ui/core/colors';
 import Paper from "@material-ui/core/Paper";
+import { useParams, useHistory } from "react-router-dom";
+
 
 // components
 import AppHomeButton from '../components/AppHomeButton';
+import FabHomeButton from "../components/FabHomeButton";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -94,6 +98,10 @@ function getValue(data) {
 
 
 export default function ChartPanel() {
+
+  let { id } = useParams();
+  console.log(id);
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     checkedV: true,
@@ -108,7 +116,7 @@ export default function ChartPanel() {
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState(100);
   const [tlmid, setTlmid] = useState([]);
-  const [select, setSelect] = useState(87);
+  const [select, setSelect] = useState(parseInt(id));
 
   var [v, i, s, p, q, t, time] = getValue(data);
   const len = data.length;
@@ -254,7 +262,7 @@ export default function ChartPanel() {
               onChange={handleTChange}
             >
               {tlmid.map(i => {
-                return <MenuItem value={i}>{i}</MenuItem>
+                return <MenuItem value={i}>{transId[transId.findIndex(k => k.transformer_id === i)].tlm_id}</MenuItem>
               })}
             </Select>
             <FormHelperText>เลือกหมายเลข TLM</FormHelperText>
@@ -444,8 +452,8 @@ export default function ChartPanel() {
             />
           </Grid>
         )}
-        <Grid item xs={12}>
-          <AppHomeButton />
+        <Grid item xs={12} style={{ position: 'sticky', bottom: 80 }} >
+          <FabHomeButton />
         </Grid>
       </Grid>
     </Container>

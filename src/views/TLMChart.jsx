@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import transformer from '../variables/transformerStub';
-import AppHomeButton from '../components/AppHomeButton';
+import FabHomeButton from '../components/FabHomeButton';
 import PieChart from '../components/PieChart'
 import MUIDataTable from "mui-datatables";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -105,7 +105,7 @@ const columns = [
 
 const options = {
     filterType: 'dropdown',
-    responsive: 'scrollMaxHeight',
+    //responsive: 'scrollMaxHeight',
     selectableRows: false,
     rowsPerPage: 20,
     rowsPerPageOptions: [20, 50, 100],
@@ -145,7 +145,7 @@ export default function TLMCard(props) {
                 <Grid item xs={12} sm={6} >
                     <PieChart id="voltage" chartData={voltData} field="count" title="สถานะแรงดันปัจจุบัน" scheme={vcolor} chartClick={handleChartClick} />
                 </Grid>
-                <Grid item xs={12} style={{ height: '1200' }}>
+                <Grid item xs={12} >
                     <MuiThemeProvider >
                         <MUIDataTable
                             title={title}
@@ -157,11 +157,9 @@ export default function TLMCard(props) {
 
                 </Grid>
 
-                <Grid item xs={12} >
-                    <AppHomeButton />
+                <Grid item xs={12} style={{ position: 'sticky', bottom: 80 }}>
+                    <FabHomeButton />
                 </Grid>
-
-
 
             </Grid>
         </Container>

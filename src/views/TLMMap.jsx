@@ -13,6 +13,8 @@ import PieStatus from '../components/PieStatus';
 import { Map } from '@esri/react-arcgis';
 import { WebMap, WebScene } from '@esri/react-arcgis';
 import AppHomeButton from '../components/AppHomeButton';
+import FabHomeButton from '../components/FabHomeButton';
+
 
 const useStyles = makeStyles({
     root: {
@@ -75,8 +77,8 @@ export default function TLMMap(props) {
                     <WebMap id="e737e5e31a1e4ea8a9e4b06ef35d6f10" class="full-screen-map" style={{ width: '1024px', height: '600px' }} />
 
                 </Grid>
-                <Grid item xs={12} >
-                    <AppHomeButton />
+                <Grid item xs={12} style={{ position: 'sticky', bottom: 80 }} >
+                    <FabHomeButton />
                 </Grid>
 
 

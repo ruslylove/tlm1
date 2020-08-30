@@ -148,7 +148,7 @@ export default function AppLayout(props) {
         setOpen(false);
         switch (text) {
             case 'Preferences': break;
-            case 'Home': history.push("home");
+            case 'Home': history.push('/home');
                 break;
             case 'Exit': props.onLogOut(e);
                 break;
