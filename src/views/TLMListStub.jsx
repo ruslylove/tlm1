@@ -101,9 +101,9 @@ function TLMListStub(props) {
     };
 
     const handleIdClick = (e, value) => {
-        let id = parseInt(value.substring(2)) - 38;
-        console.log(id);
-        history.push('/detail/' + id);
+        //let id = parseInt(value.substring(2)) - 38;
+        //console.log(id);
+        history.push('/detail/' + value);
     };
 
     const options = {

@@ -116,7 +116,7 @@ export default function ChartPanel() {
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState(100);
   const [tlmid, setTlmid] = useState([]);
-  const [select, setSelect] = useState(parseInt(id));
+  const [select, setSelect] = useState(id);
 
   var [v, i, s, p, q, t, time] = getValue(data);
   const len = data.length;
@@ -138,11 +138,7 @@ export default function ChartPanel() {
         .get("https://nodered.teratam.com/tlmid")
         .then((response) => {
           console.log(response.data);
-          setTlmid(response.data.filter(i => {
-            if (parseInt(i.value))
-              return true;
-            return false;
-          }).map(i => {
+          setTlmid(response.data.map(i => {
             return i.value;
           }));
           //setData(response.data);
@@ -262,7 +258,7 @@ export default function ChartPanel() {
               onChange={handleTChange}
             >
               {tlmid.map(i => {
-                return <MenuItem value={i}>{transId[transId.findIndex(k => k.transformer_id === i)].tlm_id}</MenuItem>
+                return <MenuItem value={i}>{i}</MenuItem>
               })}
             </Select>
             <FormHelperText>เลือกหมายเลข TLM</FormHelperText>

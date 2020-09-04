@@ -8,6 +8,8 @@ import FabHomeButton from '../components/FabHomeButton';
 import PieChart from '../components/PieChart'
 import MUIDataTable from "mui-datatables";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
+
 
 
 
@@ -60,48 +62,7 @@ const load_tag = ["tag is-dark", "tag is-info", "tag is-success", "tag is-warnin
 const voltage_tag = ["tag is-dark", "tag is-warning", "tag is-success", "tag is-danger"];
 
 //const columns = ["id", "area", "manufacturer", "rating", "voltage", "load_status", "voltage_status"];
-const columns = [
-    {
-        label: "รหัส", name: "id",
-        options: {
-            filter: false,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
 
-                return <button class="button is-dark is-small is-outlined">{value}</button>;
-            },
-        }
-    },
-    { label: "เขตพื้นที่", name: "area" },
-    { label: "ผู้ผลิต", name: "manufacturer" },
-    { label: "Rating [kVA]", name: "rating", },
-    { label: "Voltage [kV]", name: "voltage", },
-    {
-        label: "สถานะโหลด",
-        name: "load_status",
-        options: {
-            filter: true,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
-
-                return <span class={load_tag[value]} >{load[value]}</span>;
-            },
-        },
-    },
-    {
-        label: "สถานะแรงดัน",
-        name: "voltage_status",
-        options: {
-            filter: true,
-            sort: true,
-            customBodyRender: (value, tableMeta, updateValue) => {
-
-                return <span class={voltage_tag[value]}>{voltage[value]}</span>;
-            },
-        },
-    },
-
-];
 
 const options = {
     filterType: 'dropdown',
@@ -111,10 +72,13 @@ const options = {
     rowsPerPageOptions: [20, 50, 100],
 };
 
-export default function TLMCard(props) {
+
+
+export default function TLMChart(props) {
     const classes = useStyles();
     var [data, setData] = useState([]);
     var [title, setTitle] = useState('');
+    let history = useHistory();
 
     var getMuiTheme = (color) => createMuiTheme({
         overrides: {
@@ -126,6 +90,49 @@ export default function TLMCard(props) {
         }
     })
 
+    const columns = [
+        {
+            label: "รหัส", name: "id",
+            options: {
+                filter: false,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+
+                    return <button onClick={(e) => handleIdClick(e, value)} class="button is-dark is-small is-outlined">{value}</button>;
+                },
+            }
+        },
+        { label: "เขตพื้นที่", name: "area" },
+        { label: "ผู้ผลิต", name: "manufacturer" },
+        { label: "Rating [kVA]", name: "rating", },
+        { label: "Voltage [kV]", name: "voltage", },
+        {
+            label: "สถานะโหลด",
+            name: "load_status",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+
+                    return <span class={load_tag[value]} >{load[value]}</span>;
+                },
+            },
+        },
+        {
+            label: "สถานะแรงดัน",
+            name: "voltage_status",
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+
+                    return <span class={voltage_tag[value]}>{voltage[value]}</span>;
+                },
+            },
+        },
+
+    ];
+
     function handleChartClick(index, id) {
         data = transformer;
         setData(data.filter((tr) => {
@@ -133,6 +140,10 @@ export default function TLMCard(props) {
         }));
         setTitle('หม้อแปลงสถานะ' + (id === 'load' ? 'โหลด: ' + load[index] : 'แรงดัน: ' + voltage[index]));
     }
+
+    const handleIdClick = (e, value) => {
+        history.push('/detail/' + value);
+    };
 
     return (
         <Container maxWidth="lg" className={classes.root}>

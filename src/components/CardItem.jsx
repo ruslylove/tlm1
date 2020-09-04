@@ -23,6 +23,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShareIcon from '@material-ui/icons/Share';
 import Divider from '@material-ui/core/Divider';
 import PointGraphic from './PointGraphic';
+import { Link } from 'react-router-dom';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -92,21 +94,25 @@ export default function CardItem(props) {
 
     return (
         <Card className={classes.card}>
+        <Link to={'/detail/' + tran.id}>
             <CardActionArea>
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
-                            {a}
-                        </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
-                    title={tran.id}
-                    subheader="Installed on September 14, 2016"
-                />
+                
+
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                {a}
+                            </Avatar>
+                        }
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+                        title={tran.id}
+                        subheader="Installed on September 14, 2016"
+                    />
+                
                 <CardMedia
                     className={classes.media}
                     image={props.image}
@@ -135,6 +141,7 @@ export default function CardItem(props) {
 
                 </CardContent>
             </CardActionArea>
+            </Link>
             <CardActions>
                 <IconButton aria-label="add to favorites" onClick={(e) => {
                     if (!fav) {
