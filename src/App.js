@@ -125,51 +125,54 @@ function App() {
 
       <Router>
         {auth && <AppLayout onLogOut={handleLogOut} user={userAuth.user} />}
-        <Redirect to={auth ? '/home' : '/login'} />
+
         <Switch>
-          <Route exact path="/login">
-            <LoginForm onAuth={handleAuth} demo />
+          <Route exact path="/">
+            {auth ? <Redirect to='/home' /> : <LoginForm onAuth={handleAuth} demo />}
           </Route>
-          <Route path='/logout'>
-            <LoginForm logout />
-          </Route>'>
-          <Route path="/home" >
-            <AppMain menuItems={routeItems} />
-          </Route>
-          <Route path="/table">
-            <TLMListStub />
-          </Route>
-          <Route path="/cards">
-            <TLMCard />
-          </Route>
-          <Route path="/map">
-            <TLMMap />
-          </Route>
-          <Route path="/status">
-            <TLMChart />
-          </Route>
-          <Route path="/detail/:id">
-            <ChartPanel />
-          </Route>
-          <Route path="/dashboard" component={() => {
-            window.location.href = 'https://dashboard.teratam.com/d/AOKtd7eZz/tlm-dashboard?orgId=1&refresh=5m&from=1588247916319&to=1588251516319&var-tr_id=87';
-            return null;
-          }} />
-          <Route path="/alert">
-            <AppMain menuItems={routeItems} />
-          </Route>
-          <Route path="/export">
-            <AppMain menuItems={routeItems} />
-          </Route>
-          <Route path="/settings">
-            <AppMain menuItems={routeItems} />
-          </Route>
-          <Route path="/admin">
-            <AppMain menuItems={routeItems} />
-          </Route>
-          <Route path="/tlm1">
-            <AppMain menuItems={routeItems} />
-          </Route>
+          {auth && <div>
+            <Route path='/logout'>
+              <LoginForm logout />
+            </Route>
+            <Route path="/home" >
+              <AppMain menuItems={routeItems} />
+            </Route>
+            <Route path="/table">
+              <TLMListStub />
+            </Route>
+            <Route path="/cards">
+              <TLMCard />
+            </Route>
+            <Route path="/map">
+              <TLMMap />
+            </Route>
+            <Route path="/status">
+              <TLMChart />
+            </Route>
+            <Route path="/detail/:id">
+              <ChartPanel />
+            </Route>
+            <Route path="/dashboard" component={() => {
+              window.location.href = 'https://dashboard.teratam.com/d/AOKtd7eZz/tlm-dashboard?orgId=1&refresh=5m&from=1588247916319&to=1588251516319&var-tr_id=87';
+              return null;
+            }} />
+            <Route path="/alert">
+              <AppMain menuItems={routeItems} />
+            </Route>
+            <Route path="/export">
+              <AppMain menuItems={routeItems} />
+            </Route>
+            <Route path="/settings">
+              <AppMain menuItems={routeItems} />
+            </Route>
+            <Route path="/admin">
+              <AppMain menuItems={routeItems} />
+            </Route>
+            <Route path="/tlm1">
+              <AppMain menuItems={routeItems} />
+            </Route>
+          </div>}
+          <Redirect to="/" />
         </Switch>
       </Router>
 
