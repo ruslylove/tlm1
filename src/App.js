@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -37,6 +37,8 @@ import routeItems from './routes.js';
 import './App.css';
 
 import { statement } from '@babel/template';
+
+import firebase from 'firebase';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -118,6 +120,14 @@ function App() {
       })
     }
   }
+  // test user logged-in or not
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setAuth(true);
+      }
+    })
+  }, []);
 
   return (
     <div>
@@ -172,7 +182,6 @@ function App() {
               <AppMain menuItems={routeItems} />
             </Route>
           </div>}
-          <Redirect to="/" />
         </Switch>
       </Router>
 
