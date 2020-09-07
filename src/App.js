@@ -59,7 +59,15 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   // const { param } = useParams();
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(false);
+  const [auth, setAuth] = React.useState(() => {
+    return firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+  });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [page, setPage] = useState('home');
