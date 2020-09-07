@@ -30,9 +30,11 @@ import Paper from "@material-ui/core/Paper";
 import { useParams, useHistory } from "react-router-dom";
 
 
+
 // components
 import AppHomeButton from '../components/AppHomeButton';
 import FabHomeButton from "../components/FabHomeButton";
+import TransformerInfo from "../components/TransformerInfo";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -128,6 +130,7 @@ export default function ChartPanel() {
         .then((response) => {
           console.log(response.data);
           setData(response.data);
+          //setTlmid(select);
         })
         .catch((error) => {
           // Error 😨
@@ -173,6 +176,7 @@ export default function ChartPanel() {
   function valuetext(value) {
     return `${value}°C`;
   }
+
 
 
   const columns = [
@@ -244,6 +248,24 @@ export default function ChartPanel() {
     selectableRows: false,
   };
 
+  const getTransformer = (id) => {
+
+    let tran = transformer.filter((tr) => {
+      if (tr.id === id) {
+        return true;
+      } else
+        return false;
+    });
+
+    if (tran.length >= 1)
+      return tran[0];
+    else
+      return null;
+
+  }
+
+
+
   return (
     <Container className={classes.root} maxWidth="lg">
       <Typography variant="h4" className={classes.title}>ค่าบันทึกของหม้อแปลง TLM</Typography>
@@ -263,6 +285,9 @@ export default function ChartPanel() {
             </Select>
             <FormHelperText>เลือกหมายเลข TLM</FormHelperText>
           </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <TransformerInfo transformer={getTransformer(select)} />
         </Grid>
 
         <Grid item xs={12} style={{ height: '800' }}>

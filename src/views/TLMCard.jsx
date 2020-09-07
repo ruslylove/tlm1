@@ -82,7 +82,7 @@ export default function TLMCard(props) {
 
                 {!showOnly && transformer.map((item, index) => {
                     return (<Grid item xs={12} sm={6} lg={3} >
-                        <CardItem id={index} image={images[index % 6]} detail={item} onFavClick={handleFavClick}
+                        <CardItem id={index} image={"http://202.44.37.130/tlm/pic/" + (parseInt(item.Id2) - 100) + ".jpg"} detail={item} onFavClick={handleFavClick}
                             onUnFavClick={handleUnFavClick} fav={favcards.includes(item)}
 
                         />

@@ -131,11 +131,9 @@ function App() {
 
   return (
     <div>
-
-
       <Router>
         {auth && <AppLayout onLogOut={handleLogOut} user={userAuth.user} />}
-
+        {!auth && <Redirect to='/' />}
         <Switch>
           <Route exact path="/">
             {auth ? <Redirect to='/home' /> : <LoginForm onAuth={handleAuth} demo />}

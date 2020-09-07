@@ -69,12 +69,14 @@ export default function TLMMap(props) {
     const classes = useStyles();
 
     return (
-        <Container maxWidth="lg" className={classes.root}>
+        <Container maxWidth="xl" className={classes.root}>
             <Typography variant="h4" className={classes.title}>แผนที่พิกัตตำแหน่งหม้อแปลง TLM</Typography>
             <Grid container spacing={3} alignItems="center" alignContent='center' justify="center">
 
                 <Grid item  >
-                    <WebMap id="e737e5e31a1e4ea8a9e4b06ef35d6f10" class="full-screen-map" style={{ width: '1024px', height: '600px' }} />
+                    <WebMap id="e737e5e31a1e4ea8a9e4b06ef35d6f10" style={{ width: '80vw', height: '80vh' }} viewProperties={{
+                        zoom: 14
+                    }} />
 
                 </Grid>
                 <Grid item xs={12} style={{ position: 'sticky', bottom: 80 }} >
