@@ -16,7 +16,7 @@ import { Typography, Button } from '@material-ui/core';
 const useStyles = makeStyles({
     root: {
         maxWidth: 180,
-        backgroundColor: '#fff8e1',
+        backgroundColor: '#F3F3F4',
     },
     media: {
         height: 100,
