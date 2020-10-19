@@ -29,6 +29,8 @@ import ChartPanel from './views/ChartPanel';
 import TLMDrawer from './views/TLMDrawer';
 import AppLayout from './layouts/AppLayout';
 
+import PushNotificationDemo from './PushNotificationDemo';
+
 import Draggable from 'react-draggable';
 
 // routes items
@@ -173,7 +175,7 @@ function App() {
               return null;
             }} />
             <Route path="/alert">
-              <AppMain menuItems={routeItems} />
+              <PushNotificationDemo />
             </Route>
             <Route path="/export">
               <AppMain menuItems={routeItems} />
@@ -190,6 +192,7 @@ function App() {
           </div>}
         </Switch>
       </Router>
+
 
     </div>
   );
