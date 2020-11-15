@@ -171,7 +171,7 @@ function App() {
               <ChartPanel />
             </Route>
             <Route path="/dashboard" component={() => {
-              window.location.href = 'https://dashboard.teratam.com/d/AOKtd7eZz/tlm-dashboard?orgId=1&refresh=5m&from=1588247916319&to=1588251516319&var-tr_id=87';
+              window.location.href = 'https://dashboard.teratam.com/d/WFyqoahGz/tlm3-dashboard?orgId=1&refresh=10s&from=1605412249546&to=1605423049547&var-tr_id=101';
               return null;
             }} />
             <Route path="/alert">
