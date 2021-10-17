@@ -27,6 +27,7 @@ import TLMListStub from './views/TLMListStub';
 import LoginForm from './views/LoginForm';
 import ChartPanel from './views/ChartPanel';
 import TLMDrawer from './views/TLMDrawer';
+import TLMExport from './views/TLMExport';
 import AppLayout from './layouts/AppLayout';
 
 import PushNotificationDemo from './PushNotificationDemo';
@@ -178,7 +179,7 @@ function App() {
               <PushNotificationDemo />
             </Route>
             <Route path="/export">
-              <AppMain menuItems={routeItems} />
+              <TLMExport />
             </Route>
             <Route path="/settings">
               <AppMain menuItems={routeItems} />
