@@ -11,7 +11,9 @@ import Button from "@mui/material/Button";
 import { CSVDownload, CSVLink } from "react-csv";
 import FormLabel from "@mui/material/FormLabel";
 import { makeStyles } from "@material-ui/core/styles";
-import { height } from "@mui/system";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const now = new Date();
 const begin = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
@@ -34,14 +36,20 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     margin: "auto",
   },
+  button: {
+    padding: theme.spacing(3),
+    margin: "auto",
+  },
 }));
 
 export default function TLMExport(params) {
   const classes = useStyles();
   const [tlmfields, setTlmFields] = useState([]);
+  const [tlmids, setTlmIds] = useState([]);
   const [value, onChange] = useState([begin, now]);
   const [data, setData] = useState([]);
   const [state, setState] = useState("EXPORT CSV");
+  const [id, setId] = React.useState("101");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +68,22 @@ export default function TLMExport(params) {
           // Error 😨
           console.log(error);
         });
+
+      await axios
+        .get("https://nodered.teratam.com/tlm-ids")
+        .then((response) => {
+          console.log(response.data);
+          setTlmIds(
+            response.data.map((i) => {
+              return i.value;
+            })
+          );
+          //setData(response.data);
+        })
+        .catch((error) => {
+          // Error 😨
+          console.log(error);
+        });
     };
 
     fetchData();
@@ -69,7 +93,7 @@ export default function TLMExport(params) {
     // POST request using axios inside useEffect React hook
 
     const tlm_query = {
-      id: "101",
+      id: id,
       fields: getFields(),
       begin: value[0],
       end: value[1],
@@ -94,12 +118,23 @@ export default function TLMExport(params) {
       .map((i) => i[0])
       .join(",");
   }
+  const handleChange = (event) => {
+    setId(event.target.value);
+  };
 
   //console.log(Array.from(tlmfields).map((value) => [value[0], false]));
 
   return (
     <Paper lassName={classes.paper}>
       <Grid item className={classes.root}>
+        <FormControl className={classes.button}>
+          <InputLabel>TLM ID</InputLabel>
+          <Select value={id} label="TLM ID" onChange={handleChange}>
+            {tlmids.map((item) => {
+              return <MenuItem value={item}>{item}</MenuItem>;
+            })}
+          </Select>
+        </FormControl>
         <FormControl>
           <FormLabel component="legend">Fields</FormLabel>
           <FormGroup row>
@@ -161,7 +196,7 @@ export default function TLMExport(params) {
               value={value}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup row className={classes.button}>
             {data && data.length > 0 ? (
               <>
                 <CSVLink data={data} filename="tlm_export.csv">
